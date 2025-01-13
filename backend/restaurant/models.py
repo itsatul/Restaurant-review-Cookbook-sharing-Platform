@@ -1,10 +1,10 @@
 # Create your models here.
 from django.db import models
 
-from luna_project.backend.restaurant_category.models import Category
-from luna_project.backend.user.models import User
+from restaurant_category.models import Category
+from user.models import User
 
-User =get_user_model()
+
 class RestaurantRewievs:
     pass
 
@@ -22,7 +22,7 @@ class Restaurant(models.Model):
     price_level = models.CharField(max_length=100)
     image = models.ImageField(upload_to='restaurant_images/')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='restaurants')
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='restaurants')
+    user = models.ForeignKey(to =User, on_delete=models.SET_NULL, null=True, related_name='restaurants')
 
     def __str__(self):
         return self.name
