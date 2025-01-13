@@ -58,5 +58,5 @@ deploy:
   script:
     - docker compose -f docker-compose.deploy.yml pull
     - docker compose -f docker-compose.deploy.yml down --remove-orphans
-    - docker volume rm motion-backend-api-docker_frontend_build || true
+    - docker volume rm luna_project_frontend_build || true
     - docker compose -f docker-compose.deploy.yml up -d
