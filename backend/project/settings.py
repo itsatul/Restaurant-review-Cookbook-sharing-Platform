@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'restaurant',
     'restaurant_category',
     'restaurant_review',
-    'user_profile'
+    'user_profile',
     
 
     # 3rd APPS
