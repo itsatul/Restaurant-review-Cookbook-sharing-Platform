@@ -111,3 +111,11 @@ class LikesByLoggedInUserAPIView(ListAPIView):
         user = self.request.user
         reviews = user.liked_reviews.all()
         return reviews
+
+class ReviewsCommentedByLoggedInUserAPIView(ListAPIView):
+    serializer_class = RestaurantReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return RestaurantReview.objects.filter(comments_on_review__user=user).distinct()

@@ -9,23 +9,24 @@ from rest_framework.response import Response
 from restaurant_review.models import RestaurantReview
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
 from review_comment.models import ReviewComment
-from .serializers import ReviewCommentSerializer
+from review_comment.serializers import ReviewCommentSerializer, CreateReviewCommentSerializer
 
 User = get_user_model()
 
 
-class CommentsByLoggedInUserAPIView(ListAPIView):
-    serializer_class = ReviewCommentSerializer
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-        if not user.is_authenticated:
-            raise NotFound(detail="Authentication required to view your comments.")
-        return user.user_comments.all()
+# class CommentsByLoggedInUserAPIView(ListAPIView):
+#     serializer_class = ReviewCommentSerializer
+#     permission_classes = [IsAuthenticated]
+#
+#     def get_queryset(self):
+#         user = self.request.user
+#         if not user.is_authenticated:
+#             raise NotFound(detail="Authentication required to view your comments.")
+#         return user.user_comments.all()
 
 
 class CommentsbySingleUserAPIView(ListAPIView):
+    queryset = ReviewComment.objects.all()
     serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
 
@@ -48,8 +49,12 @@ class ListCommentsOnReviewAPIView(ListAPIView):
 
 
 class CreateReviewCommentAPIView(CreateAPIView):
-    serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
+    serializer_class = CreateReviewCommentSerializer
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return CreateReviewCommentSerializer
+    #     return ReviewCommentSerializer
 
     def perform_create(self, serializer):
         review_id = self.kwargs.get('review_id')
