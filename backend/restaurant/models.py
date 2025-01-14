@@ -1,12 +1,9 @@
 # Create your models here.
 from django.db import models
+from restaurant_category.models import Category
+from user.models import User
 
-from luna_project.backend.restaurant_category.models import Category
-from luna_project.backend.user.models import User
 
-
-class RestaurantRewievs:
-    pass
 
 
 class Restaurant(models.Model):
