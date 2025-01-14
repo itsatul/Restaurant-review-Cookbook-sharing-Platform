@@ -1,18 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import logoImage from "../assets/logo.svg";
+import logoImage from "../../assets/logo.svg";
+import {NavLink} from "react-router-dom";
 
 const HeaderContainer = styled.header`
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 0px 20px;
     align-items: center;
     background-color: #fff;
 `;
 
 const Logo = styled.img`
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
 `;
 
 const Nav = styled.nav`
@@ -20,9 +21,15 @@ const Nav = styled.nav`
         margin: 0 10px;
         text-decoration: none;
         color: black;
+        font-weight: normal;
 
         &:hover {
             color: orange;
+        }
+
+        &.active {
+            color: orange;
+            font-weight: bold;
         }
     }
 `;
@@ -46,9 +53,15 @@ function Header() {
         <HeaderContainer>
             <Logo src={logoImage}/>
             <Nav>
-                <navLink to="/">Home</navLink>
-                <a href="/search">Search</a>
-                <a href="/profile">Profile</a>
+                <NavLink to="/">
+                    Home
+                </NavLink>
+                <NavLink to="/search">
+                    Search
+                </NavLink>
+                <NavLink to="/profile">
+                    Profile
+                </NavLink>
                 <Button>SIGNUP</Button>
                 <Button>LOGIN</Button>
             </Nav>

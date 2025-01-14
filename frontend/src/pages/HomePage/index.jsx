@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import RestaurantDetailsCard from "../components/RestaurentDetailsCard";
+import bannerImage from "../../assets/Luna_banner.jpg"
+import RestaurantDetailsCard from "../../components/RestaurentDetailsCard.jsx";
 
 const Container = styled.div`
-  font-family: Arial, sans-serif;
 `;
 
 const Banner = styled.div`
-  background-image: url("/path-to-your-image.jpg");
+  background-image: url(${bannerImage});
   background-size: cover;
   background-position: center;
   height: 300px;
@@ -28,6 +26,7 @@ const SearchBar = styled.div`
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px 0 0 5px;
+    background-color: aliceblue;
   }
 
   button {
@@ -85,7 +84,6 @@ function HomePage() {
 
   return (
     <Container>
-      <Header />
       <Banner>
         <SearchBar>
           <input type="text" placeholder="Search..." />
@@ -100,7 +98,6 @@ function HomePage() {
           <RestaurantDetailsCard key={index} {...restaurant} />
         ))}
       </RestaurantList>
-      <Footer />
     </Container>
   );
 }
