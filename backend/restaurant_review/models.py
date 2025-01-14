@@ -11,7 +11,7 @@ class RestaurantReview(models.Model):
     rating = models.PositiveIntegerField(choices=[(i,i) for i in range(1,6)]) #Rating 1-5
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    liked_by = models.ManyToManyField(to = User, related_name='liked_reviews')
+    liked_by = models.ManyToManyField(to = User, blank= True, related_name='liked_reviews')
     text_content = models.TextField()
 
     class Meta:
