@@ -19,6 +19,7 @@ from xml.etree.ElementInclude import include
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from rest_framework.permissions import AllowAny
@@ -46,6 +47,7 @@ urlpatterns = [
     path('backend/api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('backend/api/auth/token/refresh/', TokenRefreshView.as_view(), name='retrieve-refreshed-token'),
     path('backend/api/auth/token/verify/', TokenVerifyView.as_view(), name='verify-token'),
+    path('backend/api/reviews/', include('restaurant_review.urls')),
 
     path('backend/',include('user.urls')),
 
