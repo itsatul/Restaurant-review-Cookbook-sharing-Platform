@@ -12,7 +12,7 @@ export default function Router() {
                 {/*placeholder for layout*/}
                 {/*<Route element={<LayoutWithHeaderAndFooter/>}>*/}
                 {/*placeholder for homepage*/}
-                <Route path="/home" element={<div>Home Page Placeholder</div>}/>>
+                <Route path="/home" element={<div>Home Page Placeholder</div>}/>
                 <Route path="/search" element={<SearchPage/>}/>
                 {/*</Route>*/}
                 <Route path="*" element={<div>404 Page Not Found</div>} />
