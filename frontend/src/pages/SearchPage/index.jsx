@@ -1,0 +1,78 @@
+import styled from "styled-components";
+import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
+import RestaurantCard from "../../components/RestaurantCard/index.jsx";
+import {useState} from "react";
+import StarRating from "../../components/StarRating/StarRating.jsx";
+
+const SearchPageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+const SearchNaviContainer = styled.div`
+    width: 100%;
+    height: 25px;
+    margin-bottom: 2rem;
+
+    nav {
+        height: 100%;
+    }
+
+    ul {
+        height: 100%;
+        list-style: none;
+        display: grid;
+        grid-gap: 2rem;
+        justify-content: center;
+        //grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, calc(33.33% - 240px));
+        margin: 0;
+    }
+
+    li {
+        margin-top: 0;
+        text-align: center;
+    }
+
+`
+
+const CardContainer = styled.div`
+    width: 85%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5rem;
+`
+
+export default function SearchPage() {
+
+    // managing state of active navigation point
+    const [activeNavi, setactiveNavi] = useState('RESTAURANTS');
+
+    const getContent = () => {
+        if (activeNavi === 'RESTAURANTS') {
+            return <RestaurantCard/>
+        }
+    }
+
+    return (
+        <SearchPageContainer>
+            <SearchBarSearch/>
+            <SearchNaviContainer>
+                <nav>
+                    <ul>
+                        <li onClick={() => setactiveNavi('RESTAURANTS')}>RESTAURANTS</li>
+                        <li onClick={() => setactiveNavi('REVIEWS')}>REVIEWS</li>
+                        <li onClick={() => setactiveNavi('USERS')}>USERS</li>
+                    </ul>
+                </nav>
+            </SearchNaviContainer>
+            <StarRating/>
+
+            <CardContainer>
+                {getContent()}
+            </CardContainer>
+        </SearchPageContainer>
+    )
+
+}
