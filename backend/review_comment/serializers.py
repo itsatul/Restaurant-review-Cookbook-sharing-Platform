@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from review_comment.models import RestaurantReviewComment
+from review_comment.models import ReviewComment
 
 
-class RestaurantReviewCommentSerializer(serializers.ModelSerializer):
+class ReviewCommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model: RestaurantReviewComment
+        model: ReviewComment
         fields = ['id', 'comment', 'restaurant_review', 'user']

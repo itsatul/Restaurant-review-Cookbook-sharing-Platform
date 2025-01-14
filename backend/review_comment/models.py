@@ -7,7 +7,7 @@ from restaurant_review.models import RestaurantReview
 User = get_user_model()
 
 
-class RestaurantReviewComment(models.Model):
+class ReviewComment(models.Model):
     comment = models.TextField()
     date_created_comment = models.DateTimeField(auto_now_add=True)
     date_modified_comment = models.DateTimeField(auto_now=True)

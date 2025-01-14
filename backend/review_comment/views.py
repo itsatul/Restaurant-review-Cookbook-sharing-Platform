@@ -8,14 +8,14 @@ from rest_framework.response import Response
 
 from restaurant_review.models import RestaurantReview
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
-from .models import RestaurantReviewComment
-from .serializers import RestaurantReviewCommentSerializer
+from .models import ReviewComment
+from .serializers import ReviewCommentSerializer
 
 User = get_user_model()
 
 
 class CommentsByLoggedInUserAPIView(ListAPIView):
-    serializer_class = RestaurantReviewCommentSerializer
+    serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
@@ -26,29 +26,29 @@ class CommentsByLoggedInUserAPIView(ListAPIView):
 
 
 class CommentsbySingleUserAPIView(ListAPIView):
-    serializer_class = RestaurantReviewCommentSerializer
+    serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.kwargs.get('user_id')
         if not User.objects.filter(id=user_id).exists():
             raise NotFound(detail="User not found.")
-        return RestaurantReviewComment.objects.filter(user_id=user_id)
+        return ReviewComment.objects.filter(user_id=user_id)
 
 
 class ListCommentsOnReviewAPIView(ListAPIView):
-    serializer_class = RestaurantReviewCommentSerializer
+    serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         review_id = self.kwargs['review_id']
         if not RestaurantReview.objects.filter(id=review_id).exists():
             raise NotFound(detail="Review not found.")
-        return RestaurantReviewComment.objects.filter(restaurant_review_id=review_id)
+        return ReviewComment.objects.filter(restaurant_review_id=review_id)
 
 
 class CreateReviewCommentAPIView(CreateAPIView):
-    serializer_class = RestaurantReviewCommentSerializer
+    serializer_class = ReviewCommentSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -61,11 +61,11 @@ class CreateReviewCommentAPIView(CreateAPIView):
 
 
 class DeleteReviewCommentAPIView(DestroyAPIView):
-    serializer_class = RestaurantReviewCommentSerializer
+    serializer_class = ReviewCommentSerializer
     permission_classes = [IsOwnerOrAdminOrReadOnly]
 
     def delete(self, request, *args, **kwargs):
         comment_id = self.kwargs.get('comment_id')
-        comment = RestaurantReviewComment.objects.get(id=comment_id)
+        comment = ReviewComment.objects.get(id=comment_id)
         comment.delete()
         return Response({"detail": "Comment deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
