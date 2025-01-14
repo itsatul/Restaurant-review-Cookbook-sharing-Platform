@@ -25,6 +25,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.permissions import AllowAny
 from django.urls import include, path
 
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
+from rest_framework.permissions import AllowAny
+
 from project import settings
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
