@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('restaurant_review', '0002_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),

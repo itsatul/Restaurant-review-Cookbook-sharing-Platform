@@ -20,19 +20,14 @@ class CreateRestaurantReviewAPIView(CreateAPIView):
 
     def perform_create(self, serializer):
         restaurant_id = self.kwargs.get('restaurant_id')
-
-        # Fetch the restaurant instance
         try:
             restaurant = Restaurant.objects.get(id=restaurant_id)
         except Restaurant.DoesNotExist:
             raise ValidationError({"error": "Restaurant not found."})
 
-        # Check if a review already exists for this user and restaurant
         user = self.request.user
         if RestaurantReview.objects.filter(restaurant=restaurant, user=user).exists():
             raise ValidationError({"error": "You have already reviewed this restaurant."})
-
-        # Pass the restaurant and user to the serializer to create the review
         serializer.save(restaurant=restaurant, user=user)
 
 
