@@ -1,5 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SearchPage from "../pages/SearchPage/index.jsx";
+import HomePage from "../pages/HomePage/index.jsx";
+import Layout from "../layout/index.jsx";
 
 
 export default function Router() {
@@ -12,10 +14,13 @@ export default function Router() {
                 {/*placeholder for layout*/}
                 {/*<Route element={<LayoutWithHeaderAndFooter/>}>*/}
                 {/*placeholder for homepage*/}
-                <Route path="/home" element={<div>Home Page Placeholder</div>}/>
-                <Route path="/search" element={<SearchPage/>}/>
-                {/*</Route>*/}
-                <Route path="*" element={<div>404 Page Not Found</div>} />
+                <Route element={<Layout/>}>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/search" element={<SearchPage/>}/>
+                    {/*</Route>*/}
+                    <Route path="*" element={<div>404 Page Not Found</div>}/>
+                </Route>
+
             </Routes>
         </BrowserRouter>
     )
