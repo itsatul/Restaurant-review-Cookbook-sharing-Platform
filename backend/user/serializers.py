@@ -3,11 +3,11 @@ from rest_framework import serializers
 from user.admin import User
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name'
-                  ]
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['id', 'username', 'email', 'first_name', 'last_name'
+#                   ]
 
 
 class UserprofileSerializer(serializers.ModelSerializer):
@@ -37,7 +37,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
 #         first_name = data.get('first_name')
 #         last_name = data.get('last_name')
 #         password = data.get('password')
-# hello
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField()
