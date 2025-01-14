@@ -51,6 +51,7 @@ class ListCommentsOnReviewAPIView(ListAPIView):
 class CreateReviewCommentAPIView(CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CreateReviewCommentSerializer
+
     # def get_serializer_class(self):
     #     if self.request.method == 'POST':
     #         return CreateReviewCommentSerializer

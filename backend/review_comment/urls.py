@@ -1,6 +1,6 @@
 from django.urls import path
 
-from review_comment.views import  CommentsbySingleUserAPIView, CreateReviewCommentAPIView, \
+from review_comment.views import CommentsbySingleUserAPIView, CreateReviewCommentAPIView, \
     DeleteReviewCommentAPIView, ListCommentsOnReviewAPIView
 
 urlpatterns = [

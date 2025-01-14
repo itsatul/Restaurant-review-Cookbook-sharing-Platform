@@ -112,6 +112,7 @@ class LikesByLoggedInUserAPIView(ListAPIView):
         reviews = user.liked_reviews.all()
         return reviews
 
+
 class ReviewsCommentedByLoggedInUserAPIView(ListAPIView):
     serializer_class = RestaurantReviewSerializer
     permission_classes = [IsAuthenticated]
