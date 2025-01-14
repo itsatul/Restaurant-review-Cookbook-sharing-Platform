@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from luna_project.backend.restaurant.models import Restaurant
-from luna_project.backend.restaurant_category.models import Category
-from luna_project.backend.user.admin import User
+from restaurant.models import Restaurant
+from restaurant_category.models import Category
+from user.admin import User
 
 
 class CategorySerializer(serializers.ModelSerializer):
