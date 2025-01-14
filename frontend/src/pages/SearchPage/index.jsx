@@ -2,12 +2,13 @@ import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 import {useState} from "react";
-import StarRating from "../../components/StarRating/StarRating.jsx";
+import StarRating from "../../components/StarRating/index.jsx";
 
 const SearchPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: #F5F5F5;
 `
 
 const SearchNaviContainer = styled.div`
@@ -67,7 +68,6 @@ export default function SearchPage() {
                     </ul>
                 </nav>
             </SearchNaviContainer>
-            <StarRating/>
 
             <CardContainer>
                 {getContent()}
