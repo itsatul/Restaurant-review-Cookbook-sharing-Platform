@@ -1,7 +1,6 @@
 # Create your views here.
-from http.client import responses
 
-from django.contrib.auth.handlers.modwsgi import check_password
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -11,7 +10,6 @@ from rest_framework.views import APIView
 from user.models import User
 from user.permissions import IsadminOrReadOnly
 from user.serializers import UserSerializer, UserprofileSerializer
-from django.db.models import Q
 
 
 class GetAllUsersView(ListCreateAPIView):
@@ -19,11 +17,14 @@ class GetAllUsersView(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class UserProfileView(RetrieveUpdateAPIView):
     serializer_class = UserprofileSerializer
     permission_classes = [IsAuthenticated]
+
     def get_object(self):
         return self.request.user
+
 
 class SearchUsersView(APIView):
     permission_classes = [IsAuthenticated]
@@ -36,12 +37,13 @@ class SearchUsersView(APIView):
         users_data = UserSerializer(users, many=True).data
         return Response(users_data, status=status.HTTP_200_OK)
 
+
 class RetrieveOnlyUsersById(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
-    def get(self, request,*args,**kwargs):
+    def get(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
