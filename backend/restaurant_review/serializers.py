@@ -8,7 +8,8 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         many=True,  # Because it's a ManyToManyField
         read_only=True  # Prevent users from modifying the liked_by field directly
     )
+
     class Meta:
         model = RestaurantReview
         fields = ['restaurant', 'user', 'text_content', 'rating', 'liked_by']
-        read_only_fields = ['restaurant','user','liked_by']
+        read_only_fields = ['restaurant', 'user', 'liked_by']

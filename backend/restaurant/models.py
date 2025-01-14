@@ -21,8 +21,8 @@ class Restaurant(models.Model):
     opening_hours = models.CharField(max_length=100, blank=True)
     price_level = models.CharField(max_length=100, blank=True)
     image = models.ImageField(upload_to='restaurant_images/', blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True,blank=True, related_name='restaurants')
-    user = models.ForeignKey(to =User, on_delete=models.SET_NULL,null =True, blank=True, related_name='restaurants')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='restaurants')
+    user = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=True, related_name='restaurants')
 
     def __str__(self):
         return self.name

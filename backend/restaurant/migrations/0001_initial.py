@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -28,7 +27,9 @@ class Migration(migrations.Migration):
                 ('opening_hours', models.CharField(max_length=100)),
                 ('price_level', models.CharField(max_length=100)),
                 ('image', models.ImageField(upload_to='restaurant_images/')),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='restaurants', to='restaurant_category.category')),
+                ('category',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='restaurants',
+                                   to='restaurant_category.category')),
             ],
         ),
     ]
