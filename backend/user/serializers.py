@@ -17,26 +17,26 @@ class UserprofileSerializer(serializers.ModelSerializer):
                   'joined_date']
 
 
-class LoginSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    password = serializers.CharField()
-
-    def validate(self, data):
-        email = data.get('email')
-        password = data.get('password')
-
-
-class RegisterSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    password = serializers.CharField()
-
-    def validate(self, data):
-        email = data.get('email')
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        password = data.get('password')
+# class LoginSerializer(serializers.Serializer):
+#     email = serializers.EmailField()
+#     password = serializers.CharField()
+#
+#     def validate(self, data):
+#         email = data.get('email')
+#         password = data.get('password')
+#
+#
+# class RegisterSerializer(serializers.Serializer):
+#     email = serializers.EmailField()
+#     first_name = serializers.CharField()
+#     last_name = serializers.CharField()
+#     password = serializers.CharField()
+#
+#     def validate(self, data):
+#         email = data.get('email')
+#         first_name = data.get('first_name')
+#         last_name = data.get('last_name')
+#         password = data.get('password')
 
 
 class ChangePasswordSerializer(serializers.Serializer):
