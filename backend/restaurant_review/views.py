@@ -47,11 +47,9 @@ class ListRestaurantReviewAPIView(ListAPIView):
             raise NotFound(detail="Restaurant not found.")
         return RestaurantReview.objects.filter(restaurant_id=restaurant_id)
 
-
     class ListUsersReviewAPIView(ListAPIView):
         queryset = RestaurantReview.objects.all()
         permission_classes = [AllowAny]
-
         serializer_class = RestaurantReviewSerializer
 
         def get_queryset(self):
