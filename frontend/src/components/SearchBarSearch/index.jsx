@@ -4,6 +4,7 @@ import {useState} from "react";
 const SearchBarWrapper = styled.div`
     width: 100%;
     display: flex;
+    background: #FFFFFF;
 `
 
 const SearchBarInput = styled.input`
