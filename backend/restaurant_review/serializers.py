@@ -34,4 +34,3 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         fields = ['restaurant', 'user', 'text_content', 'rating', 'liked_by']
         read_only_fields = ['restaurant', 'user', 'liked_by']
         ref_name = "RestaurantReviewSerializer"
-
