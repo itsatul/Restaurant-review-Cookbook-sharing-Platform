@@ -48,19 +48,17 @@ class ListRestaurantReviewAPIView(ListAPIView):
         return RestaurantReview.objects.filter(restaurant_id=restaurant_id)
 
 
-class ListUsersReviewAPIView(ListAPIView):
-    queryset = RestaurantReview.objects.all()
-    permission_classes = [AllowAny]
+    class ListUsersReviewAPIView(ListAPIView):
+        queryset = RestaurantReview.objects.all()
+        permission_classes = [AllowAny]
 
-    serializer_class = RestaurantReviewSerializer
+        serializer_class = RestaurantReviewSerializer
 
-    def get_queryset(self):
-        user_id = self.kwargs['user_id']
-        try:
-            user = User.objects.get(id=user_id)  # Attempt to retrieve the user
-        except User.DoesNotExist:
-            raise NotFound(detail="User not found.")
-        return RestaurantReview.objects.filter(user_id=user_id)
+        def get_queryset(self):
+            user_id = self.kwargs['user_id']
+            if not User.objects.filter(id=user_id).exists():
+                raise NotFound(detail="User not found.")
+            return RestaurantReview.objects.filter(user_id=user_id)
 
 
 class RetrieveUpdateDestroyReviewAPIView(RetrieveUpdateDestroyAPIView):
