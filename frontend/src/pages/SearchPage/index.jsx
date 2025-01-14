@@ -3,6 +3,7 @@ import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 import {useState} from "react";
 import StarRating from "../../components/StarRating/index.jsx";
+import ReviewCard from "../../components/ReviewCard/index.jsx";
 
 const SearchPageContainer = styled.div`
     display: flex;
@@ -53,6 +54,9 @@ export default function SearchPage() {
     const getContent = () => {
         if (activeNavi === 'RESTAURANTS') {
             return <RestaurantCard/>
+        }
+        else if (activeNavi === 'REVIEWS') {
+            return <ReviewCard/>
         }
     }
 
