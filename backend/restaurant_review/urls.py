@@ -1,7 +1,8 @@
 from django.urls import path
 
 from restaurant_review.views import CreateRestaurantReviewAPIView, ListRestaurantReviewAPIView, ListUsersReviewAPIView, \
-    RetrieveUpdateDestroyReviewAPIView, ToggleLikeReviewAPIView, LikesByLoggedInUserAPIView
+    RetrieveUpdateDestroyReviewAPIView, ToggleLikeReviewAPIView, LikesByLoggedInUserAPIView, \
+    ReviewsCommentedByLoggedInUserAPIView
 
 urlpatterns = [
 
@@ -11,5 +12,6 @@ urlpatterns = [
     path('<int:review_id>/', RetrieveUpdateDestroyReviewAPIView.as_view()),
     path('like/<int:review_id>/', ToggleLikeReviewAPIView.as_view()),
     path('likes/', LikesByLoggedInUserAPIView.as_view()),
+    path('comments/', ReviewsCommentedByLoggedInUserAPIView.as_view()),
 
 ]

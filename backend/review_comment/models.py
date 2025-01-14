@@ -12,8 +12,8 @@ class ReviewComment(models.Model):
     date_created_comment = models.DateTimeField(auto_now_add=True)
     date_modified_comment = models.DateTimeField(auto_now=True)
     restaurant_review = models.ForeignKey(to=RestaurantReview, on_delete=models.CASCADE,
-                                          related_name='comments_on_review')
-    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='user_comments')
+                                          related_name='comments_on_review', blank=True)
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='user_comments', blank=True)
 
     def __str__(self):
         return self.comment
