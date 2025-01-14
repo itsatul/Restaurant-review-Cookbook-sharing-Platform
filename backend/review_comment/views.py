@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from restaurant_review.models import RestaurantReview
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
-from .models import ReviewComment
+from review_comment.models import ReviewComment
 from .serializers import ReviewCommentSerializer
 
 User = get_user_model()

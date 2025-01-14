@@ -5,7 +5,7 @@ from review_comment.models import ReviewComment
 
 
 class ReviewCommentAdmin(admin.ModelAdmin):
-    list_display = ['id','comment']
+    list_display = ['id', 'comment']
     search_fields = ['comment']
 
 
