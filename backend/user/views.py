@@ -1,46 +1,86 @@
 # Create your views here.
+from http.client import responses
+
+from django.contrib.auth.handlers.modwsgi import check_password
 from rest_framework import status
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from user.models import User
-from user.serializers import UserSerializer
+from user.permissions import IsadminOrReadOnly
+from user.serializers import UserSerializer, UserprofileSerializer
+from django.db.models import Q
 
 
-class GetAllUsersView(APIView):
+class GetAllUsersView(ListCreateAPIView):
+    permission_classes = [IsadminOrReadOnly]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserProfileView(RetrieveUpdateAPIView):
+    serializer_class = UserprofileSerializer
+    permission_classes = [IsAuthenticated]
+    def get_object(self):
+        return self.request.user
+
+class SearchUsersView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        permission_classes = [IsAuthenticated]
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
+        search_string = request.query_params.get('search', '')
+        users = User.objects.filter(
+            Q(username__icontains=search_string) | Q(email__icontains=search_string)
+        )
+        users_data = UserSerializer(users, many=True).data
+        return Response(users_data, status=status.HTTP_200_OK)
+
+class RetrieveOnlyUsersById(GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request,*args,**kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-    # def get(self, request):
-    #     permission_classes = [IsAuthenticated]
-    #     users = User.objects.all()
-    #     users_data = [user.id for user in users]
-    #     return Response(users_data, status=status.HTTP_200_OK)
-    # def post(self, request):
-    #     users_data = request.data
-    #     serializer = UserSerializer(data=users_data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    def post(self, request,*args,**kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
 
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return UserSerializer
-        return
+class PasswordResetView(APIView):
 
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        new_password = request.data.get('new_password')
+        confirm_password = request.data.get('confirm_password')
 
-# class GetUserView(APIView):
-#     def get(self, request, user_id):
-#         user = User.objects.get(id=user_id)
-#         user_data = [user.id for user in user]
-#         return Response(user_data, status=status.HTTP_200_OK)
+        if not password or not new_password or not confirm_password or not username:
+            return Response(
+                {"detail": "All fields are required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response(
+                {"detail": "User does not exist"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if not user.check_password(password):
+            return Response(
+                {"detail": "Current password is incorrect"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if new_password != confirm_password:
+            return Response(
+                {"detail": "Passwords don't match"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        user.set_password(new_password)
+        user.save()
+        return Response(
+            {"detail": "Password has been changed"},
+            status=status.HTTP_200_OK,
+        )

@@ -6,10 +6,13 @@ from user.admin import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password',
-                  'email', 'first_name', 'last_name','phone',
-                  'things_i_love','description','joined_dateK'
+        fields = ['id', 'username', 'email', 'first_name', 'last_name'
                   ]
+
+class UserprofileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'phone','things_i_love','description','joined_date']
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -38,3 +41,8 @@ class ChangePasswordSerializer(serializers.Serializer):
 
         if new_password != old_password:
             raise serializers.ValidationError('The new password does not match the old one.')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']
