@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import bannerImage from "../../assets/Luna_banner.jpg";
-import RestaurantDetailsCard from "../../components/RestaurentDetailsCard.jsx";
 import {useLocation} from "react-router-dom";
+import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 
 const Container = styled.div`
     display: flex;
@@ -101,7 +101,6 @@ function HomePage() {
             setError("Error fetching best-rated restaurants.");
         } finally {
             setLoading(false);
-            console.log('line90', loading)
         }
     };
 
@@ -160,12 +159,11 @@ function HomePage() {
                     <Message>No data found.</Message>
                 ) : (
                     restaurants.map((restaurant) => (
-                        <RestaurantDetailsCard
+                        <RestaurantCard
                             key={restaurant.id}
-                            name={restaurant.name}
-                            address={restaurant.address}
-                        />
-                    ))
+                            restaurant={restaurant}
+                        />)
+                    )
                 )}
             </RestaurantList>
         </Container>
