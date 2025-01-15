@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'user_profile',
     'review_comment',
 
-    # 3rd APPS
     # 3rd party
     'rest_framework',
     'drf_yasg',
