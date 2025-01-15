@@ -3,6 +3,7 @@ import styled from "styled-components";
 import bannerImage from "../../assets/Luna_banner.jpg";
 import {useLocation} from "react-router-dom";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
+import {api} from "../../axios/axios.js";
 
 const Container = styled.div`
     display: flex;
@@ -86,7 +87,7 @@ function HomePage() {
         setLoading(true);
         setError("");
         try {
-            // const response = await api.get('/home'); Uncomment when endpoint works
+            // const response = await api.get('/home');
             // const data = response.data.results;
             const data = [
                 {"id": 1, "name": "The Food Palace", "address": "123 Main St"},
@@ -117,13 +118,9 @@ function HomePage() {
         setLoading(true);
         setError("");
         try {
-            // const response = await api.get('restaurants?search=${query}'); //Uncomment when endpoint works
-            // const data = response.data.results;
-            // const data = []; //mimick no search results found
-            const data = [ //mimick some search reasults found
-                {"id": 3, "name": "Burger World", "address": "789 King St"},
-                {"id": 4, "name": "Sushi Central", "address": "101 Ocean Ave"}
-            ]
+            const response = await api.get(`/search/?type=restaurants&search=${query}`); //Uncomment when endpoint works
+            const data = response.data;
+
             if (data.length === 0) {
                 setError("No data found.");
             } else {

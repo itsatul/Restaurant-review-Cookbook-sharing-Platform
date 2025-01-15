@@ -51,17 +51,18 @@ export default function RestaurantCard({restaurant}) {
     return (
         // adding restaurant data (name, address, rating, rating count, image) to restaurant card
         <RestaurantCardDiv key={restaurant.id} onClick={() => navigate(`/restaurant/${restaurant.id}`)}>
-            <div className={'restaurant-title'}>{restaurant.id}</div>
-            <div className={'restaurant-address'}>{restaurant.title}</div>
-    <StarRating rating={restaurant.rating}/>
-    {/*<img className="restaurant-image" src={restaurant.images[0]}/>*/
-    }
-    {
-        restaurant.images && restaurant.images[0] && (
-            <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant"/>
-        )
-    }
-</RestaurantCardDiv>
+            <div className={'restaurant-title'}>{restaurant.name}</div>
+            <div
+                className={'restaurant-address'}>{`${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</div>
+            <StarRating rating={restaurant.rating}/>
+            <img className="restaurant-image" src={restaurant.image} alt="Restaurant"/>
 
-)
+            {/*{*/}
+            {/*    restaurant.images && restaurant.images[0] && (*/}
+            {/*        <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant"/>*/}
+            {/*    )*/}
+            {/*}*/}
+        </RestaurantCardDiv>
+
+    )
 }
