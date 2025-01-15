@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -101,3 +102,15 @@ class RestaurantDeleteByRestaurantIdAPIView(APIView):
 
         except Restaurant.DoesNotExist:
             raise NotFound(detail='Restaurant does not exist')
+
+
+class OrderRestaurantsByRatingAPIView(APIView):
+    permission_classes = (AllowAny,)
+    serializer_class = RestaurantSerializer
+
+    def get(self, request):
+        restaurants = Restaurant.objects.annotate(
+            average_rating=Avg('restaurant_reviews__rating')
+        ).order_by('-average_rating')[:4]
+        serializer = RestaurantSerializer(restaurants, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
