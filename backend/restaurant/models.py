@@ -1,6 +1,5 @@
 # Create your models here.
 from django.db import models
-from django.db.models import Avg
 
 from restaurant_category.models import Category
 from user.models import User
@@ -25,11 +24,6 @@ class Restaurant(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=False,
                                  related_name='restaurants', default=1)
     user = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True, blank=False, related_name='restaurants')
-
-    @property
-    def average_rating(self):
-        # Aggregate the average rating from related reviews
-        return self.restaurant_reviews.aggregate(avg_rating=Avg('rating'))['avg_rating'] or 0
 
     def __str__(self):
         return self.name

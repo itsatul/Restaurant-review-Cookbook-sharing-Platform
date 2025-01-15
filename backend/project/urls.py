@@ -51,7 +51,7 @@ urlpatterns = [
     path('backend/api/', include('review_comment.urls')),
     path('backend/api/restaurants/', include('restaurant.urls')),
     path('backend/api/category/', include('restaurant_category.urls')),
-    path('backend/api/search/', include('user_profile.urls'))
+    path('backend/api/', include('user_profile.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
