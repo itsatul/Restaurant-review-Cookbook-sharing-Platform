@@ -4,6 +4,7 @@ import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
+import {useRestaurantData} from "../../hooks/useRestaurantData.js";
 
 const SearchPageContainer = styled.div`
     display: flex;
@@ -48,17 +49,7 @@ const CardContainer = styled.div`
 
 export default function SearchPage() {
 
-    // fetching of data
-    const dispatch = useDispatch()
-    const data = useSelector((state) => state.restaurant.data);
-    const status = useSelector((state) => state.restaurant.status);
-    const error = useSelector((state) => state.restaurant.error);
-
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchRestaurantData());
-        }
-    }, [status, dispatch]);
+    const {data: restaurantData, status: restaurantStatus, error: restaurantError} = useRestaurantData()
 
     // managing state of active navigation point
     const NAVI_ITEMS = {
@@ -76,14 +67,14 @@ export default function SearchPage() {
             return (
                 <>
                     {/*error handling included here to avoid early returns which would lead to rendering issues*/}
-                    {status === 'loading' && <div>Loading...</div>}
-                    {status === 'failed' && <div>Error: {error}</div>}
-                    {status === 'succeeded' && Array.isArray(data) && data.length > 0 ? (
-                        data.map((item) => (
+                    {restaurantStatus === 'loading' && <div>Loading...</div>}
+                    {restaurantStatus === 'failed' && <div>Error: {restaurantError}</div>}
+                    {restaurantStatus === 'succeeded' && Array.isArray(restaurantData) && restaurantData.length > 0 ? (
+                        restaurantData.map((item) => (
                             <RestaurantCard key={item.id} restaurant={item}/>
                         ))
                     ) : (
-                        status === 'succeeded' && <div>No restaurants found.</div>
+                        restaurantStatus === 'succeeded' && <div>No restaurants found.</div>
                     )}
                 </>
             )
