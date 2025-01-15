@@ -45,7 +45,9 @@ urlpatterns = [
     path('backend/api/reviews/', include('restaurant_review.urls')),
     path('backend/', include('user.urls')),
     path('backend/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('backend/api/', include('review_comment.urls'))
+    path('backend/api/', include('review_comment.urls')),
+    path('backend/api/restaurants', include('restaurant.urls')),
+    path('backend/api/category/', include('restaurant_category.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
