@@ -15,7 +15,7 @@ export default function Router() {
                 <Route path="/home" element={<div>Home Page Placeholder</div>}/>
                 <Route path="/search" element={<SearchPage/>}/>
                 {/*</Route>*/}
-                <Route path="*" element={<div>404 Page Not Found</div>} />
+                <Route path="*" element={<div>404 Page Not Found</div>}/>
             </Routes>
         </BrowserRouter>
     )

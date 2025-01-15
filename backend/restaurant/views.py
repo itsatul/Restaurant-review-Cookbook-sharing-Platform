@@ -46,7 +46,6 @@ class RestaurantCreatedByUserAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, user_id):
-
         restaurants = Restaurant.objects.filter(user_id=user_id).order_by('created_at')
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -72,7 +71,6 @@ class RestaurantUpdateByRestaurantIdAPIView(APIView):
         try:
             restaurant = Restaurant.objects.get(id=restaurant_id)
 
-
             if restaurant.user != request.user:
                 raise PermissionDenied(detail="You do not have permission to perform this action")
 
@@ -93,7 +91,6 @@ class RestaurantDeleteByRestaurantIdAPIView(APIView):
     def delete(self, request, restaurant_id):
         try:
             restaurant = Restaurant.objects.get(id=restaurant_id)
-
 
             if restaurant.user != request.user:
                 raise PermissionDenied(detail="You do not have permission to perform this action")

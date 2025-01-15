@@ -2,7 +2,6 @@ import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 import {useState} from "react";
-import StarRating from "../../components/StarRating/index.jsx";
 
 const SearchPageContainer = styled.div`
     display: flex;
