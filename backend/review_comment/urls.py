@@ -5,9 +5,9 @@ from review_comment.views import CommentsbySingleUserAPIView, CreateReviewCommen
 
 urlpatterns = [
     # path('reviews/comments/', CommentsByLoggedInUserAPIView.as_view()),
-    path('review/comment/user/<int:user_id>/', CommentsbySingleUserAPIView.as_view()),
-    path('review/comment/<int:review_id>/', ListCommentsOnReviewAPIView.as_view()),
-    path('review/comment/new/<int:review_id>/', CreateReviewCommentAPIView.as_view()),
-    path('review/comment/delete/<int:comment_id>/', DeleteReviewCommentAPIView.as_view()),
+    path('user/<int:user_id>/', CommentsbySingleUserAPIView.as_view()),
+    path('<int:review_id>/', ListCommentsOnReviewAPIView.as_view()),
+    path('new/<int:review_id>/', CreateReviewCommentAPIView.as_view()),
+    path('delete/<int:comment_id>/', DeleteReviewCommentAPIView.as_view()),
 
 ]
