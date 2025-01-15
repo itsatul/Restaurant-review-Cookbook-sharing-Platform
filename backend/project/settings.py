@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'restaurant_category',
     'restaurant_review',
     'user_profile',
+    'review_comment',
 
     # 3rd APPS
     # 3rd party
