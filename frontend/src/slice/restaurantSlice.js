@@ -6,7 +6,7 @@ export const fetchRestaurantData = createAsyncThunk(
     'restaurant/fetchRestaurantData',
     async () => {
         const response = await axios.get('https://dummyjson.com/products');
-        return response.data.products
+        return response.data.products;
     }
 );
 

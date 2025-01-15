@@ -11,12 +11,14 @@ class OwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username']
+        ref_name = 'Owner1'
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = ['id', 'name']
+        ref_name = 'Restaurant1'
 
 
 class RestaurantReviewSerializer(serializers.ModelSerializer):
@@ -31,3 +33,4 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         model = RestaurantReview
         fields = ['restaurant', 'user', 'text_content', 'rating', 'liked_by']
         read_only_fields = ['restaurant', 'user', 'liked_by']
+        ref_name = "RestaurantReviewSerializer"
