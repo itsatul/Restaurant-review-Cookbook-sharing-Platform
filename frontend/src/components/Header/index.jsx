@@ -9,11 +9,12 @@ const HeaderContainer = styled.header`
     padding: 0px 20px;
     align-items: center;
     background-color: #fff;
+    border-bottom: 2px solid #EBEBEB;
 `;
 
 const Logo = styled.img`
     width: 100px;
-    height: 100px;
+    height: 60px;
 `;
 
 const Nav = styled.nav`
