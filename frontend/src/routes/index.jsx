@@ -8,6 +8,7 @@ import Registration from "../pages/Registration.jsx";
 import Message from "../pages/Message.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import NewPassword from "../pages/NewPassword.jsx";
+import LikeButton from "../components/LikeButton/index.jsx";
 
 
 export default function Router() {
@@ -31,6 +32,7 @@ export default function Router() {
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
                     <Route path="/new-password" element={<NewPassword/>}/>
                     <Route path="*" element={<div>404 Page Not Found</div>}/>
+                    <Route path="/test" element={<LikeButton/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
