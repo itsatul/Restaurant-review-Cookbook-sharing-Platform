@@ -122,6 +122,7 @@ class ReviewsCommentedByLoggedInUserAPIView(ListAPIView):
         user = self.request.user
         return RestaurantReview.objects.filter(comments_on_review__user=user).distinct()
 
+
 class ListRestaurantsReviewAPIView(APIView):
     permission_classes = (AllowAny,)
 

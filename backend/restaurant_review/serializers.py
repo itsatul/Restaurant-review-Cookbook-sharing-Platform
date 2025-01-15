@@ -27,11 +27,15 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         read_only=True  # Prevent users from modifying the liked_by field directly
     )
     like_count = serializers.SerializerMethodField()
+
     def get_like_count(self, obj):
         return len(obj.liked_by.all())
+
     comment_count = serializers.SerializerMethodField()
+
     def get_comment_count(self, obj):
         return len(obj.comments_on_review.all())
+
     restaurant = RestaurantSerializer(read_only=True)
     user = OwnerSerializer(read_only=True)
 
