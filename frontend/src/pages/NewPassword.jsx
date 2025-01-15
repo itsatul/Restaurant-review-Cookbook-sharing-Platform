@@ -6,7 +6,7 @@ import {
 } from "../components/Authentication/authentication.style.js";
 
 const NewPassword = () => {
-        return (
+    return (
         <ContainerAuthDiv>
             <ContainerHeaderDiv>
                 <div className='name'>NEW PASSWORD</div>
