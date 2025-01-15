@@ -27,7 +27,8 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5173','http://localhost:5173', 'https://luna-project-batch30.propulsion-learn.ch']
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:5173', 'http://localhost:5173',
+                        'https://luna-project-batch30.propulsion-learn.ch']
 
 CSRF_TRUSTED_ORIGINS = ['https://luna-project-batch30.propulsion-learn.ch']
 # Application definition
