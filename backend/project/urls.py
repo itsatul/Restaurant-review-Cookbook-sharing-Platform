@@ -19,9 +19,10 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from project import settings
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
+from project import settings
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -49,7 +50,8 @@ urlpatterns = [
     path('backend/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('backend/api/', include('review_comment.urls')),
     path('backend/api/restaurants/', include('restaurant.urls')),
-    path('backend/api/category/', include('restaurant_category.urls'))
+    path('backend/api/category/', include('restaurant_category.urls')),
+    path('backend/api/search/', include('user_profile.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
