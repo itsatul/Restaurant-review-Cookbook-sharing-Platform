@@ -25,7 +25,7 @@ function RestaurantPage() {
     const RestaurentBannerDiv = styled.div`
         flex-grow: 1;
         padding: 1rem 5rem;
-        background-color: rgba(19, 18, 18, 0.15); /* Example background */
+        background-color: rgba(19, 18, 18, 0.3); /* Example background */
 
 
         /* Target all h tags inside BannerDiv */
