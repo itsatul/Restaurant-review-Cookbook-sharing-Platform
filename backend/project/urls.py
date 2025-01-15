@@ -29,7 +29,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Django REST API",
         default_version="v1",
-        description="My nice webshop",  # you can modify to your preference
+        description="Luna",  # you can modify to your preference
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="academy@constructor.org"),
         license=openapi.License(name="BSD License"),
@@ -45,7 +45,8 @@ urlpatterns = [
     path('backend/api/auth/token/verify/', TokenVerifyView.as_view(), name='verify-token'),
     path('backend/api/reviews/', include('restaurant_review.urls')),
 
-    path('backend/', include('user.urls')),
+    path('backend/', include('user.urls', )),
+    path('backend/api/', include('registration_profile.urls')),
 
     path('backend/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
