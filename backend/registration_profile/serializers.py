@@ -1,8 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from registration_profile.models import RegistrationProfile
-
 User = get_user_model()
 
 
@@ -25,6 +23,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         new_user = User.objects.create(email=email, username=email, is_active=False)
         new_user.save()
         return new_user
+
 
 class ProfileValidationSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)

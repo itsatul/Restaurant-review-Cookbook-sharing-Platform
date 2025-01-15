@@ -1,18 +1,17 @@
 # Create your views here.
-from urllib import response
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
+from registration_profile.models import RegistrationProfile
+from registration_profile.serializers import RegistrationSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from registration_profile.models import RegistrationProfile
-from registration_profile.serializers import RegistrationSerializer
-
 User = get_user_model()
+
 
 # class RegistrationView(APIView):
 #     permission_classes = [AllowAny]
@@ -68,12 +67,14 @@ class RegistrationView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RegistrationProfileValidationView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         code = request.data.get('code')
         email = request.data.get('email')
-        password =  request.data.get('password')
+        password = request.data.get('password')
         repeat_password = request.data.get('repeat_password')
         first_name = request.data.get('first_name')
         last_name = request.data.get('last_name')
@@ -113,5 +114,3 @@ class RegistrationProfileValidationView(APIView):
             return Response({'message': 'User created '}, status=status.HTTP_200_OK)
         except RegistrationProfile.DoesNotExist:
             return Response({'error': 'Invalid code'}, status=status.HTTP_400_BAD_REQUEST)
-
-

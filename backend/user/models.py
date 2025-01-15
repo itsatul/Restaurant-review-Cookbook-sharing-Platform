@@ -24,9 +24,11 @@ class User(AbstractUser):
     def str(self):
         return self.username
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     password_reset_code = models.CharField(max_length=6, null=True, blank=True)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

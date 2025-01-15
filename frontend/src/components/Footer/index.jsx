@@ -22,16 +22,16 @@ const FooterContainer = styled.footer`
 `;
 
 function Footer() {
-  return (
-    <FooterContainer>
-      <a href="/about-us">About Us</a>
-      <a href="/press">Press</a>
-      <a href="/blog">Blog</a>
-      <a href="/ios">iOS</a>
-      <a href="/android">Android</a>
-      <span>© Copyright Luna 2018</span>
-    </FooterContainer>
-  );
+    return (
+        <FooterContainer>
+            <a href="/about-us">About Us</a>
+            <a href="/press">Press</a>
+            <a href="/blog">Blog</a>
+            <a href="/ios">iOS</a>
+            <a href="/android">Android</a>
+            <span>© Copyright Luna 2018</span>
+        </FooterContainer>
+    );
 }
 
 export default Footer;

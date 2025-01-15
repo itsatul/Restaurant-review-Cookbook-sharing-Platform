@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
+import {useState} from "react";
 import {useRestaurantData} from "../../hooks/useRestaurantData.js";
 
 const SearchPageContainer = styled.div`

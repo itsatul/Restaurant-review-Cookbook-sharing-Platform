@@ -9,9 +9,7 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveU
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from registration_profile.models import RegistrationProfile
-from user.models import User, Profile
+from user.models import User
 from user.permissions import IsadminOrReadOnly
 from user.serializers import UserSerializer, UserprofileSerializer
 
@@ -95,28 +93,28 @@ class RetrieveOnlyUsersById(GenericAPIView):
 def code_generator(length=6):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
+
+
 class PasswordResetView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
 
-
-
         if not email:
             return Response({'error': 'Email address not provided'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             user = User.objects.get(email=email)
-            reset_code=code_generator()
+            reset_code = code_generator()
             user.profile.password_reset_code = reset_code
             user.profile.save()
             send_mail(
-            'Password Reset Code',
-            f'Your reset code is: {reset_code}',
-            'Luna@gmail.com',
-            [email],
-            fail_silently=False,
-        )
+                'Password Reset Code',
+                f'Your reset code is: {reset_code}',
+                'Luna@gmail.com',
+                [email],
+                fail_silently=False,
+            )
             return Response({'message': 'code sent'}, status=status.HTTP_200_OK)
 
         except User.DoesNotExist:
@@ -125,6 +123,7 @@ class PasswordResetView(APIView):
 
 class PasswordValidationView(APIView):
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
         code = request.data.get('code')
@@ -135,7 +134,7 @@ class PasswordValidationView(APIView):
             'email': email,
             'code': code,
             'password': password,
-            'new_password' : new_password,
+            'new_password': new_password,
             'repeat_new_password': repeat_new_password,
 
         }
@@ -146,7 +145,7 @@ class PasswordValidationView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         try:
-            user =User.objects.get(email=email)
+            user = User.objects.get(email=email)
             if user.profile.password_reset_code != code:
                 return Response({'error': 'Invalid reset code'}, status=status.HTTP_400_BAD_REQUEST)
             if not user.check_password(password):
@@ -160,6 +159,3 @@ class PasswordValidationView(APIView):
             return Response({'message': 'Password updated'}, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response({'error': 'No user with that email'}, status=status.HTTP_404_NOT_FOUND)
-
-
-
