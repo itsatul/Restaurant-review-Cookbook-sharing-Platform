@@ -1,7 +1,10 @@
 *.sqlite3
+pycache
+*/pycache
 *.pyc
 __pycache__
-.idea
+__pycache__/
+.idea/
 .DS_Store
 static-files
 media-files

@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
+import ReviewCard from "../../components/ReviewCard/index.jsx";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
 import {useRestaurantData} from "../../hooks/useRestaurantData.js";
+import {fetchReviewData} from "../../slice/reviewSlice.js";
+import {useReviewData} from "../../hooks/useReviewData.js";
 
 const SearchPageContainer = styled.div`
     display: flex;
@@ -49,7 +52,9 @@ const CardContainer = styled.div`
 
 export default function SearchPage() {
 
+    // use custom hooks to fetch relevant data
     const {data: restaurantData, status: restaurantStatus, error: restaurantError} = useRestaurantData()
+    const {data: reviewData, status: reviewStatus, error: reviewError} = useReviewData()
 
     // managing state of active navigation point
     const NAVI_ITEMS = {
@@ -75,6 +80,20 @@ export default function SearchPage() {
                         ))
                     ) : (
                         restaurantStatus === 'succeeded' && <div>No restaurants found.</div>
+                    )}
+                </>
+            )
+        } else if (activeNavi === 'REVIEWS') {
+            return(
+                <>
+                {reviewStatus === 'loading' && <div>Loading...</div>}
+                    {reviewStatus === 'failed' && <div>Error: {reviewError}</div>}
+                    {reviewStatus === 'succeeded' && Array.isArray(reviewData) && reviewData.length > 0 ? (
+                        reviewData.map((item) => (
+                            <ReviewCard key={item.id} review={item}/>
+                        ))
+                    ) : (
+                        reviewStatus === 'succeeded' && <div>No reviews found.</div>
                     )}
                 </>
             )

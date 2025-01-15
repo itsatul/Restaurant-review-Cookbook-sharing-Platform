@@ -4,7 +4,7 @@ const orangeColor = '#E47D31'
 const titleColor = '#4C4C4C'
 // const inputAColor = '#555555'
 const inputAColor = '#979797'
-const borderColor= '#EBEBEB'
+const borderColor = '#EBEBEB'
 const whiteColor = '#ffffff'
 
 export const ContainerAuthDiv = styled.div`

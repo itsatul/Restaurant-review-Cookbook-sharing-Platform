@@ -26,11 +26,28 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         many=True,  # Because it's a ManyToManyField
         read_only=True  # Prevent users from modifying the liked_by field directly
     )
+    like_count = serializers.SerializerMethodField()
+
+    def get_like_count(self, obj):
+        return len(obj.liked_by.all())
+
+    comment_count = serializers.SerializerMethodField()
+
+    def get_comment_count(self, obj):
+        return len(obj.comments_on_review.all())
+
     restaurant = RestaurantSerializer(read_only=True)
     user = OwnerSerializer(read_only=True)
 
     class Meta:
         model = RestaurantReview
-        fields = ['restaurant', 'user', 'text_content', 'rating', 'liked_by']
-        read_only_fields = ['restaurant', 'user', 'liked_by']
+        fields = ['id', 'restaurant', 'user', 'text_content', 'rating', 'liked_by', 'like_count', 'comment_count']
+        read_only_fields = ['id', 'restaurant', 'user', 'liked_by', 'like_count', 'comment_count']
         ref_name = "RestaurantReviewSerializer"
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['liked_by'] = [
+            user.username for user in instance.liked_by.all()
+        ]
+        return representation

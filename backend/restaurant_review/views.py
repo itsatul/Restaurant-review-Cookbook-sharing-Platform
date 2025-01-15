@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from restaurant_review.models import Restaurant
 from restaurant_review.models import RestaurantReview
@@ -120,3 +121,12 @@ class ReviewsCommentedByLoggedInUserAPIView(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return RestaurantReview.objects.filter(comments_on_review__user=user).distinct()
+
+
+class ListRestaurantsReviewAPIView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        restaurants = RestaurantReview.objects.all()
+        serializer = RestaurantReviewSerializer(restaurants, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
