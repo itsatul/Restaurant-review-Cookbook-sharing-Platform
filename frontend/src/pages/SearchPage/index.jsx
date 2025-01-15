@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
 import {useState} from "react";
 import StarRating from "../../components/StarRating/index.jsx";
 import ReviewCard from "../../components/ReviewCard/index.jsx";
@@ -48,15 +51,45 @@ const CardContainer = styled.div`
 
 export default function SearchPage() {
 
-    // managing state of active navigation point
-    const [activeNavi, setactiveNavi] = useState('RESTAURANTS');
+    // fetching of data
+    const dispatch = useDispatch()
+    const data = useSelector((state) => state.restaurant.data);
+    const status = useSelector((state) => state.restaurant.status);
+    const error = useSelector((state) => state.restaurant.error);
 
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchRestaurantData());
+        }
+    }, [status, dispatch]);
+
+    // managing state of active navigation point
+    const NAVI_ITEMS = {
+        RESTAURANTS: 'RESTAURANTS',
+        REVIEWS: 'REVIEWS',
+        USERS: 'USERS',
+    }
+    const [activeNavi, setActiveNavi] = useState(NAVI_ITEMS.RESTAURANTS);
+    console.log('Active Navi:', activeNavi);
+
+    // returning according content dependent on chosen navigation
     const getContent = () => {
         if (activeNavi === 'RESTAURANTS') {
-            return <RestaurantCard/>
-        }
-        else if (activeNavi === 'REVIEWS') {
-            return <ReviewCard/>
+            console.log('restaurants active')
+            return (
+                <>
+                    {/*error handling included here to avoid early returns which would lead to rendering issues*/}
+                    {status === 'loading' && <div>Loading...</div>}
+                    {status === 'failed' && <div>Error: {error}</div>}
+                    {status === 'succeeded' && Array.isArray(data) && data.length > 0 ? (
+                        data.map((item) => (
+                            <RestaurantCard key={item.id} restaurant={item}/>
+                        ))
+                    ) : (
+                        status === 'succeeded' && <div>No restaurants found.</div>
+                    )}
+                </>
+            )
         }
     }
 
@@ -66,9 +99,9 @@ export default function SearchPage() {
             <SearchNaviContainer>
                 <nav>
                     <ul>
-                        <li onClick={() => setactiveNavi('RESTAURANTS')}>RESTAURANTS</li>
-                        <li onClick={() => setactiveNavi('REVIEWS')}>REVIEWS</li>
-                        <li onClick={() => setactiveNavi('USERS')}>USERS</li>
+                        <li onClick={() => setActiveNavi('RESTAURANTS')}>RESTAURANTS</li>
+                        <li onClick={() => setActiveNavi('REVIEWS')}>REVIEWS</li>
+                        <li onClick={() => setActiveNavi('USERS')}>USERS</li>
                     </ul>
                 </nav>
             </SearchNaviContainer>
