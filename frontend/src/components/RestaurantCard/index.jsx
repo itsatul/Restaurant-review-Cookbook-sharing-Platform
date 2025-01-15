@@ -24,7 +24,6 @@ export default function RestaurantCard({restaurant}) {
     if (!restaurant) {
         return <div>No restaurant</div>
     }
-
     // const dispatch = useDispatch()
     // const data = useSelector((state) => state.restaurant.data);
     // const status = useSelector((state) => state.restaurant.status);
@@ -47,16 +46,16 @@ export default function RestaurantCard({restaurant}) {
     // console.log('restaurant data', restaurant)
 
     return (
-            // adding restaurant data (name, address, rating, rating count, image) to restaurant card
-            <RestaurantCardDiv key={restaurant.id}>
-                <div className={'restaurant-title'}>{restaurant.id}</div>
-                <div className={'restaurant-address'}>{restaurant.title}</div>
-                <StarRating rating={restaurant.rating}/>
-                {/*<img className="restaurant-image" src={restaurant.images[0]}/>*/}
-                {restaurant.images && restaurant.images[0] && (
-                <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant" />
+        // adding restaurant data (name, address, rating, rating count, image) to restaurant card
+        <RestaurantCardDiv key={restaurant.id}>
+            <div className={'restaurant-title'}>{restaurant.id}</div>
+            <div className={'restaurant-address'}>{restaurant.title}</div>
+            <StarRating rating={restaurant.rating}/>
+            {/*<img className="restaurant-image" src={restaurant.images[0]}/>*/}
+            {restaurant.images && restaurant.images[0] && (
+                <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant"/>
             )}
-            </RestaurantCardDiv>
+        </RestaurantCardDiv>
 
     )
 }

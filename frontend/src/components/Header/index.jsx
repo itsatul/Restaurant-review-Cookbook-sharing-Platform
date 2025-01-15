@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/logo.svg";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -9,11 +9,12 @@ const HeaderContainer = styled.header`
     padding: 0px 20px;
     align-items: center;
     background-color: #fff;
+    border-bottom: 2px solid #EBEBEB;
 `;
 
 const Logo = styled.img`
     width: 100px;
-    height: 100px;
+    height: 60px;
 `;
 
 const Nav = styled.nav`
@@ -49,6 +50,7 @@ const Button = styled.button`
 `;
 
 function Header() {
+    const navigate = useNavigate();
     return (
         <HeaderContainer>
             <Logo src={logoImage}/>
@@ -62,8 +64,8 @@ function Header() {
                 <NavLink to="/profile">
                     Profile
                 </NavLink>
-                <Button>SIGNUP</Button>
-                <Button>LOGIN</Button>
+                <Button onClick={() => navigate('/registration')}>SIGNUP</Button>
+                <Button onClick={() => navigate('/login')}>LOGIN</Button>
             </Nav>
         </HeaderContainer>
     );
