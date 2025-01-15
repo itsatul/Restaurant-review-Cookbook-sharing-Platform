@@ -5,7 +5,7 @@ from restaurant.models import Restaurant
 
 
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name']
+    list_display = ['name']
     search_fields = ['name']
 
 

@@ -6,6 +6,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
         ('restaurant_review', '0003_alter_restaurantreview_liked_by'),
         ('review_comment', '0001_initial'),
@@ -16,13 +17,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='reviewcomment',
             name='restaurant_review',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE,
-                                    related_name='comments_on_review', to='restaurant_review.restaurantreview'),
+            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments_on_review', to='restaurant_review.restaurantreview'),
         ),
         migrations.AlterField(
             model_name='reviewcomment',
             name='user',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE,
-                                    related_name='user_comments', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_comments', to=settings.AUTH_USER_MODEL),
         ),
     ]
