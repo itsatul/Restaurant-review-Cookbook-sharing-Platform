@@ -1,15 +1,16 @@
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
+from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
 
 
 class ListRestaurantAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get(self, request):
         restaurants = Restaurant.objects.all()
@@ -29,7 +30,7 @@ class RestaurantCreateViewSet(APIView):
 
 
 class ListRestaurantByCategoryAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get(self, request):
         category_name = request.query_params.get('category', None)
@@ -43,7 +44,7 @@ class ListRestaurantByCategoryAPIView(APIView):
 
 
 class RestaurantCreatedByUserAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get(self, request, user_id):
         restaurants = Restaurant.objects.filter(user_id=user_id).order_by('created_at')
@@ -52,7 +53,7 @@ class RestaurantCreatedByUserAPIView(APIView):
 
 
 class RestaurantDetailsByRestaurantIdAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get(self, request, restaurant_id):
         try:
@@ -65,7 +66,7 @@ class RestaurantDetailsByRestaurantIdAPIView(APIView):
 
 
 class RestaurantUpdateByRestaurantIdAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsOwnerOrAdminOrReadOnly,)
 
     def patch(self, request, restaurant_id):
         try:
@@ -86,7 +87,7 @@ class RestaurantUpdateByRestaurantIdAPIView(APIView):
 
 
 class RestaurantDeleteByRestaurantIdAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsOwnerOrAdminOrReadOnly,)
 
     def delete(self, request, restaurant_id):
         try:

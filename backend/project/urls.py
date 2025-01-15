@@ -28,7 +28,7 @@ urlpatterns = [
     path('backend/api/auth/token/refresh/', TokenRefreshView.as_view(), name='retrieve-refreshed-token'),
     path('backend/api/auth/token/verify/', TokenVerifyView.as_view(), name='verify-token'),
     path('backend/api/reviews/', include('restaurant_review.urls')),
-    path('backend/api/', include('restaurant.urls')),
+    path('backend/api/restaurants', include('restaurant.urls')),
     path('backend/api/category/', include('restaurant_category.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
