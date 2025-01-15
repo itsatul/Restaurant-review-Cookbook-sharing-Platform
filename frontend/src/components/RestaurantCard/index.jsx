@@ -1,22 +1,23 @@
 import styled from "styled-components";
 import StarRating from "../StarRating/index.jsx";
 import {useNavigate} from "react-router-dom";
-
 const RestaurantCardDiv = styled.div`
     //width: 20vw;
     max-width: 270px;
     min-width: 250px;
-    height: 45vh;
+    height: 50vh;
     border: 1px solid #EBEBEB;
     border-top: 8px solid #E47D31;
     background: #FFFFFF;
     padding-inline: 1rem;
     padding-top: 1rem;
+    padding-bottom: 1rem;
     cursor: pointer;
+    gap: 1rem;
 
     .restaurant-image {
         width: 100%;
-        height: 80%;
+        height: 60%;
         overflow: hidden;
     }
 
@@ -34,7 +35,7 @@ export default function RestaurantCard({restaurant}) {
             <div className={'restaurant-title'}>{restaurant.name}</div>
             <div
                 className={'restaurant-address'}>{`${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</div>
-            <StarRating rating={restaurant.rating}/>
+            <StarRating rating={restaurant.average_rating}/>
             <img className="restaurant-image" src={restaurant.image} alt="Restaurant"/>
 
             {/*{*/}
