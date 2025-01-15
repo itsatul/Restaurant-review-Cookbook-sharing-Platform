@@ -5,8 +5,8 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
 import {useState} from "react";
-import StarRating from "../../components/StarRating/index.jsx";
 import ReviewCard from "../../components/ReviewCard/index.jsx";
+import {fetchReviewData} from "../../slice/reviewSlice.js";
 
 const SearchPageContainer = styled.div`
     display: flex;
@@ -60,6 +60,7 @@ export default function SearchPage() {
     useEffect(() => {
         if (status === 'idle') {
             dispatch(fetchRestaurantData());
+            dispatch(fetchReviewData())
         }
     }, [status, dispatch]);
 
@@ -87,6 +88,21 @@ export default function SearchPage() {
                         ))
                     ) : (
                         status === 'succeeded' && <div>No restaurants found.</div>
+                    )}
+                </>
+            )
+        } if (activeNavi === 'REVIEWS') {
+            return (
+                <>
+                    {/*error handling included here to avoid early returns which would lead to rendering issues*/}
+                    {status === 'loading' && <div>Loading...</div>}
+                    {status === 'failed' && <div>Error: {error}</div>}
+                    {status === 'succeeded' && Array.isArray(data) && data.length > 0 ? (
+                        data.map((item) => (
+                            <ReviewCard key={item.id} review={item}/>
+                        ))
+                    ) : (
+                        status === 'succeeded' && <div>No Reviews found.</div>
                     )}
                 </>
             )

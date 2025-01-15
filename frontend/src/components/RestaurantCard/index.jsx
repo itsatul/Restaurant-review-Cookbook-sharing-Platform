@@ -25,27 +25,6 @@ export default function RestaurantCard({restaurant}) {
         return <div>No restaurant</div>
     }
 
-    // const dispatch = useDispatch()
-    // const data = useSelector((state) => state.restaurant.data);
-    // const status = useSelector((state) => state.restaurant.status);
-    // const error = useSelector((state) => state.restaurant.error);
-    //
-    // useEffect(() => {
-    //     if (status === 'idle') {
-    //         dispatch(fetchRestaurantData());
-    //     }
-    // }, [status, dispatch]);
-    //
-    // if (status === 'loading') {
-    //     return <div>Loading...</div>;
-    // }
-    //
-    // if (status === 'failed') {
-    //     return <div>Error: {error}</div>;
-    // }
-
-    // console.log('restaurant data', restaurant)
-
     return (
             // adding restaurant data (name, address, rating, rating count, image) to restaurant card
             <RestaurantCardDiv key={restaurant.id}>

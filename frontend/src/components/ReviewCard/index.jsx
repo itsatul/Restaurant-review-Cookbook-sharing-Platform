@@ -68,26 +68,7 @@ const ReviewCardBottom = styled.div`
 
 `
 
-export default function ReviewCard() {
-
-    const dispatch = useDispatch()
-    const data = useSelector((state) => state.review.data);
-    const status = useSelector((state) => state.review.status);
-    const error = useSelector((state) => state.review.error);
-
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchReviewData());
-        }
-    }, [status, dispatch]);
-
-    if (status === 'loading') {
-        return <div>Loading...</div>;
-    }
-
-    if (status === 'failed') {
-        return <div>Error: {error}</div>;
-    }
+export default function ReviewCard({review}) {
 
     // const test_data = {
     //     reviews: [{
