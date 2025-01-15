@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -30,8 +29,10 @@ class Migration(migrations.Migration):
                 ('opening_hours', models.CharField(blank=True, max_length=100)),
                 ('price_level', models.CharField(blank=True, max_length=100)),
                 ('image', models.ImageField(blank=True, upload_to='restaurant_images/')),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='restaurants', to='restaurant_category.category')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='restaurants', to=settings.AUTH_USER_MODEL)),
+                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                               related_name='restaurants', to='restaurant_category.category')),
+                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                           related_name='restaurants', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
