@@ -17,8 +17,8 @@ const Message = () => {
                     <div className='input-box'>
                         <p>Thanks for your registration.</p>
                         <p> Our hard working monkeys are preparing a digital message called E-Mail that will be sent to
-                            you soon. Since monkeys arent good in writing the message could end up in you junk folder.
-                            Our apologies for any inconvienience.</p>
+                            you soon. Since monkeys arent good in writing the message could end up in you junk
+                            folder. Our apologies for any inconvenience.</p>
                     </div>
                     <div className='input-box'>
                         <button>Continue</button>
