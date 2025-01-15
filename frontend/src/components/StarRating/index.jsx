@@ -21,7 +21,7 @@ const StarRatingDiv = styled.div`
     }
 `;
 
-export default function StarRating({rating}) {
+export default function StarRating({rating = 0}) {
 
     // Function to calculate the rounded rating
     const calculateStars = (rating) => {
@@ -41,6 +41,8 @@ export default function StarRating({rating}) {
     };
 
     const stars = calculateStars(rating);
+
+    // console.log('rating prop', rating)
 
     return (
         <>
