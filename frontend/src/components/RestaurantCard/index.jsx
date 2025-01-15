@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StarRating from "../StarRating/index.jsx";
+import {useNavigate} from "react-router-dom";
 
 const RestaurantCardDiv = styled.div`
     //width: 20vw;
@@ -11,6 +12,7 @@ const RestaurantCardDiv = styled.div`
     background: #FFFFFF;
     padding-inline: 1rem;
     padding-top: 1rem;
+    cursor: pointer;
 
     .restaurant-image {
         width: 100%;
@@ -21,6 +23,7 @@ const RestaurantCardDiv = styled.div`
 `
 
 export default function RestaurantCard({restaurant}) {
+    const navigate = useNavigate();
     if (!restaurant) {
         return <div>No restaurant</div>
     }
@@ -47,15 +50,18 @@ export default function RestaurantCard({restaurant}) {
 
     return (
         // adding restaurant data (name, address, rating, rating count, image) to restaurant card
-        <RestaurantCardDiv key={restaurant.id}>
+        <RestaurantCardDiv key={restaurant.id} onClick={() => navigate(`/restaurant/${restaurant.id}`)}>
             <div className={'restaurant-title'}>{restaurant.id}</div>
             <div className={'restaurant-address'}>{restaurant.title}</div>
-            <StarRating rating={restaurant.rating}/>
-            {/*<img className="restaurant-image" src={restaurant.images[0]}/>*/}
-            {restaurant.images && restaurant.images[0] && (
-                <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant"/>
-            )}
-        </RestaurantCardDiv>
+    <StarRating rating={restaurant.rating}/>
+    {/*<img className="restaurant-image" src={restaurant.images[0]}/>*/
+    }
+    {
+        restaurant.images && restaurant.images[0] && (
+            <img className="restaurant-image" src={restaurant.images[0]} alt="Restaurant"/>
+        )
+    }
+</RestaurantCardDiv>
 
-    )
+)
 }

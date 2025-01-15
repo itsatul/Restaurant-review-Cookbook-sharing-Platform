@@ -8,6 +8,7 @@ import Registration from "../pages/Registration.jsx";
 import Message from "../pages/Message.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import NewPassword from "../pages/NewPassword.jsx";
+import RestaurantPage from "../pages/RestaurantPage/index.jsx";
 
 
 export default function Router() {
@@ -23,6 +24,7 @@ export default function Router() {
                 <Route element={<Layout/>}>
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/search" element={<SearchPage/>}/>
+                    <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
                     {/*</Route>*/}
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/registration/message" element={<Message/>}/>
