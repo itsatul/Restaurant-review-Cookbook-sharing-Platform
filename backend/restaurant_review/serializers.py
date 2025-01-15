@@ -31,6 +31,6 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RestaurantReview
-        fields = ['restaurant', 'user', 'text_content', 'rating', 'liked_by']
-        read_only_fields = ['restaurant', 'user', 'liked_by']
+        fields = ['id', 'restaurant', 'user', 'text_content', 'rating', 'liked_by']
+        read_only_fields = ['id', 'restaurant', 'user', 'liked_by']
         ref_name = "RestaurantReviewSerializer"
