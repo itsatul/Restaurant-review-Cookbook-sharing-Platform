@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    category = serializers.CharField()
+    category = CategorySerializer(read_only=True)
     user = UserSerializer(read_only=True)
     average_rating = serializers.DecimalField(
         read_only=True,

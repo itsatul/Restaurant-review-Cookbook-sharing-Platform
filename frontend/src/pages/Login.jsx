@@ -17,9 +17,9 @@ const Login = () => {
         const baseUrl = 'https://luna-project-batch30.propulsion-learn.ch/backend/api'
 
         const [userInfo, setUserInfo] = useState({
-        email: "jihye@admin.com",
-        password: "test123456",
-    });
+            email: "jihye@admin.com",
+            password: "test123456",
+        });
         const {email, password} = userInfo;
         const [error, setError] = useState(null);
 
