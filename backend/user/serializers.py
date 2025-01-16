@@ -34,6 +34,9 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    review_count = serializers.SerializerMethodField()
+    def get_review_count(self, obj):
+        return obj.user_reviews.count()
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'profile_picture', 'description', 'review_count' ]

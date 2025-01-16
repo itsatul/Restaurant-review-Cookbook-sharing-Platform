@@ -17,7 +17,7 @@ from user.serializers import UserSerializer, UserprofileSerializer
 
 
 class GetAllUsersView(ListCreateAPIView):
-    permission_classes = [IsadminOrReadOnly]
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
