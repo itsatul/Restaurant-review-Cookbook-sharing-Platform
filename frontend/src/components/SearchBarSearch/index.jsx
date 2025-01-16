@@ -5,13 +5,14 @@ const SearchBarWrapper = styled.div`
     width: 100%;
     display: flex;
     background: #FFFFFF;
+    border-block: 1px solid #EBEBEB;
+
 `
 
 const SearchBarInput = styled.input`
     width: 80%;
     height: 50px;
     border: none;
-    border-bottom: 1px solid #EBEBEB;
 `
 
 const DropDownButton = styled.button`

@@ -41,20 +41,20 @@ const Rating = styled.div`
   }
 `;
 
-function RestaurantDetailsCard({ name, address, image, rating, votes }) {
-  return (
-    <Card>
-      <Image src={image} alt={name} />
-      <Content>
-        <h3>{name}</h3>
-        <p>{address}</p>
-        <Rating>
-          <div>⭐ {rating}</div>
-          <span>({votes})</span>
-        </Rating>
-      </Content>
-    </Card>
-  );
+function RestaurantDetailsCard({name, address, image, rating, votes}) {
+    return (
+        <Card>
+            <Image src={image} alt={name}/>
+            <Content>
+                <h3>{name}</h3>
+                <p>{address}</p>
+                <Rating>
+                    <div>⭐ {rating}</div>
+                    <span>({votes})</span>
+                </Rating>
+            </Content>
+        </Card>
+    );
 }
 
 export default RestaurantDetailsCard;
