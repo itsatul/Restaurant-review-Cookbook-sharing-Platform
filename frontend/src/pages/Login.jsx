@@ -12,7 +12,6 @@ import {login, logout} from '../slice/userSlice.js'
 
 
 const Login = () => {
-
         // temporary url for dev
         // const baseUrl = 'https://motion.propulsion-home.ch/backend/api'
         const baseUrl = 'https://luna-project-batch30.propulsion-learn.ch/backend/api'
@@ -44,7 +43,6 @@ const Login = () => {
                         setError(null)
                         dispatch(login(res.data));
                         localStorage.setItem("access", res.data.access);
-                        localStorage.setItem("user", JSON.stringify(res.data.user));
                         // const from = location.state?.from || {pathname: "/"};
                         // navigate(from);
                     })
@@ -54,7 +52,6 @@ const Login = () => {
                         localStorage.clear()
                         setError("Login Failed");
                         console.log("err:", err.response.data.detail);
-
                     });
             } else {
                 dispatch(logout());
