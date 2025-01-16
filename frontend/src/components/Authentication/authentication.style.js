@@ -105,8 +105,8 @@ export const AuthFormForm = styled.form`
         flex-wrap: wrap;
         max-width: 830px;
 
-        .input-wrapper:nth-child(odd) {
-            margin-right: 30px;
+        .input-wrapper {
+            margin-right: 15px;
             margin-bottom: 15px;
         }
     }

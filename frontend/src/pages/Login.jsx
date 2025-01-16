@@ -6,19 +6,16 @@ import {
     ContainerHeaderDiv
 } from '../components/Authentication/authentication.style.js'
 import {useState} from "react";
-import axios from "axios";
 import {useDispatch} from "react-redux";
 import {login, logout} from '../slice/userSlice.js'
-
+import {api} from "../axios/axios.js"
 
 const Login = () => {
-        // temporary url for dev
-        // const baseUrl = 'https://motion.propulsion-home.ch/backend/api'
         const baseUrl = 'https://luna-project-batch30.propulsion-learn.ch/backend/api'
 
         const [userInfo, setUserInfo] = useState({
-            email: "jihye@admin.com",
-            password: "test123456",
+            email: "",
+            password: "",
         });
         const {email, password} = userInfo;
         const [error, setError] = useState(null);
@@ -33,14 +30,12 @@ const Login = () => {
 
         const handleSubmit = (e) => {
             e.preventDefault();
-            console.log(userInfo)
 
             // Checks if user inputs are correct
             if (email !== "" && password !== "") {
                 setError(null)
-                axios.post(baseUrl + "/auth/token/", userInfo)
+                api.post(baseUrl + "/auth/token/", userInfo)
                     .then((res) => {
-                        console.log(res.data)
                         setError(null)
                         dispatch(login(res.data));
                         localStorage.setItem("access", res.data.access);
@@ -48,11 +43,9 @@ const Login = () => {
                         navigate(from);
                     })
                     .catch((err) => {
-                        console.log(err)
                         dispatch(logout());
                         localStorage.clear()
                         setError("Login Failed");
-                        console.log("err:", err.response.data.detail);
                     });
             } else {
                 dispatch(logout());
@@ -69,7 +62,6 @@ const Login = () => {
                 </ContainerHeaderDiv>
                 <ContainerBodyDiv>
                     <AuthFormForm>
-
                         <div className='input-box'>
                             <div className='input-wrapper'>
                                 <input type='email' placeholder='E-Mail' name='email' onChange={onChange}/>

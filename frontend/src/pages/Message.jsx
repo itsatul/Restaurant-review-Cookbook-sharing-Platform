@@ -4,8 +4,11 @@ import {
     ContainerBodyDiv,
     ContainerHeaderDiv
 } from "../components/Authentication/authentication.style.js";
+import {Link, useLocation} from "react-router-dom";
 
 const Message = () => {
+    const location = useLocation();
+
     return (
         <ContainerAuthDiv>
             <ContainerHeaderDiv>
@@ -21,7 +24,12 @@ const Message = () => {
                             folder. Our apologies for any inconvenience.</p>
                     </div>
                     <div className='input-box'>
-                        <button>Continue</button>
+                        <Link
+                            to={"/registration/verification"}
+                            state={{email: location.state?.email || ""}}
+                        >
+                            <button>Continue</button>
+                        </Link>
                     </div>
                 </AuthFormForm>
             </ContainerBodyDiv>
