@@ -3,40 +3,22 @@ from rest_framework import serializers
 from user.admin import User
 
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ['id', 'username', 'email', 'first_name', 'last_name'
-#                   ]
-
-
 class UserprofileSerializer(serializers.ModelSerializer):
+    review_count = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
+
+    def get_review_count(self, obj):
+        return obj.user_reviews.count()
+
+    def get_comment_count(self, obj):
+        return obj.user_comments.count()
+
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'phone', 'things_i_love', 'description',
-                  'joined_date', 'profile_picture', 'banner_picture']
-
-
-# class LoginSerializer(serializers.Serializer):
-#     email = serializers.EmailField()
-#     password = serializers.CharField()
-#
-#     def validate(self, data):
-#         email = data.get('email')
-#         password = data.get('password')
-#
-#
-# class RegisterSerializer(serializers.Serializer):
-#     email = serializers.EmailField()
-#     first_name = serializers.CharField()
-#     last_name = serializers.CharField()
-#     password = serializers.CharField()
-#
-#     def validate(self, data):
-#         email = data.get('email')
-#         first_name = data.get('first_name')
-#         last_name = data.get('last_name')
-#         password = data.get('password')
+                  'joined_date', 'profile_picture', 'banner_picture',
+                  'location', 'review_count', 'comment_count']
+        # location, number of reviews and number of comments
 
 
 class ChangePasswordSerializer(serializers.Serializer):
