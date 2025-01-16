@@ -174,7 +174,10 @@ const NewReview = () => {
 
       if (!token) {
         toast.error("User is not authenticated. Please log in.");
-        navigate("/login");
+        // Delay the navigation by 6 seconds to show the toast
+        setTimeout(() => {
+           navigate("/login");
+        }, 6000); // 6000 ms = 5 seconds
         return;
       }
 
@@ -201,7 +204,7 @@ const NewReview = () => {
       console.error("Error submitting review:", err);
 
       if (err.response) {
-        toast.error(`Error: ${err.response.data.detail || "Failed to submit review!"}`);
+        toast.error(`Error: ${err.response.data.error || "Failed to submit review!"}`);
       } else {
         toast.error("An unexpected error occurred.");
       }
