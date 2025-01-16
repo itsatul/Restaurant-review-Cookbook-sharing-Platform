@@ -124,7 +124,7 @@ class UserProfileView(RetrieveUpdateAPIView):
         serializer = UserprofileSerializer(instance=instance, data=request.data, partial=True)
 
         if serializer.is_valid():
-            updated_profile = serializer.save()
+            #updated_profile = serializer.save()
             updated_fields = serializer.validated_data
             updated_fields_str = "\n".join(
                 f"{key}: {value}" for key, value in updated_fields.items()
@@ -134,8 +134,7 @@ class UserProfileView(RetrieveUpdateAPIView):
 
                 f'The following fields in your user profile were updated:\n\n'
                 f'{updated_fields_str}\n\n'
-                f'Thank you for updating your profile!'
-                ,
+                f'Thank you for updating your profile!',
                 'Luna company',
                 [serializer.data["email"]],
                 fail_silently=False,
