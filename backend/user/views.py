@@ -132,9 +132,9 @@ class UserProfileView(RetrieveUpdateAPIView):
             send_mail(
                 f'{serializer.data["username"]}Your User Profile have been updated.',
 
-                    f'The following fields in your user profile were updated:\n\n'
-                    f'{updated_fields_str}\n\n'
-                    f'Thank you for updating your profile!'
+                f'The following fields in your user profile were updated:\n\n'
+                f'{updated_fields_str}\n\n'
+                f'Thank you for updating your profile!'
                 ,
                 'Luna company',
                 [serializer.data["email"]],

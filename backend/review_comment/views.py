@@ -68,12 +68,13 @@ class CreateReviewCommentAPIView(CreateAPIView):
 
         review_author = review.user  # Get the user who created the review
         send_mail(
-        'New comment on your review!',
-        f'Hi {review_author.username}, someone commented on your review for {review.restaurant.name}.',
-        'Luna Company <noreply@luna.com>',
-        [review_author.email],
-        fail_silently=False,
-    )
+            'New comment on your review!',
+            f'Hi {review_author.username}, someone commented on your review for {review.restaurant.name}.',
+            'Luna Company <noreply@luna.com>',
+            [review_author.email],
+            fail_silently=False,
+        )
+
 
 class DeleteReviewCommentAPIView(DestroyAPIView):
     serializer_class = ReviewCommentSerializer

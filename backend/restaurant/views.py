@@ -1,14 +1,13 @@
+from django.core.mail import send_mail
 from django.db.models import Avg
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
-from django.core.mail import send_mail
 
 
 class ListRestaurantAPIView(APIView):

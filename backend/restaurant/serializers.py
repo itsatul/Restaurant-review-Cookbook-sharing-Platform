@@ -33,4 +33,17 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'street', 'city', 'average_rating', 'zip', 'website', 'phone', 'email', 'opening_hours',
                   'price_level', 'image', 'category', 'user']
 
+    def create(self, validated_data):
+        # Extract category name
+        category_name = validated_data.pop('category')
 
+        # Try to get the category by name
+        category = Category.objects.filter(name=category_name).first()  # Get the first category with this name
+
+        if not category:
+            raise serializers.ValidationError(f"Category with name '{category_name}' does not exist.")
+
+        # Create the restaurant instance with the validated data and category
+        restaurant = Restaurant.objects.create(category=category, **validated_data)
+
+        return restaurant

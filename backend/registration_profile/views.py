@@ -42,7 +42,7 @@ class RegistrationView(APIView):
             if User.objects.filter(email=email).exists():
                 return Response({'error': 'Email is already registered'}, status=status.HTTP_400_BAD_REQUEST)
 
-            new_user = User.objects.create(email=email,username=email,is_active=True)
+            new_user = User.objects.create(email=email, username=email, is_active=True)
 
             # trigger the creation of the RegistrationProfile via post_save signal
             registration_profile = RegistrationProfile.objects.get(user=new_user)
