@@ -3,45 +3,36 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from registration_profile.models import RegistrationProfile
+from registration_profile.serializers import RegistrationSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from registration_profile.models import RegistrationProfile
-from registration_profile.serializers import RegistrationSerializer
-
 User = get_user_model()
-
-
-# class RegistrationView(APIView):
-#     permission_classes = [AllowAny]
-#
-#     def post(self, request,  *args, **kwargs):
-#         serializer =RegistrationSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             email = serializer.data['email']
-#             new_user = User.objects.create(email=email)
-#             if new_user:
-#                 registration_code = RegistrationProfile.objects.get(user=new_user).code
-#                 send_mail(
-#                     'your registration code',
-#                     f'Your registration code is {registration_code}',
-#                     'garjony722@gmail.com',
-#                     [email],
-#                     fail_silently=False,
-#                 )
-#                 return Response({'message': 'registration code sent successfully'}, status=status.HTTP_200_OK)
-#             else:
-#                 return Response({'error':'registration code is not found'}, status=status.HTTP_400_BAD_REQUEST)
-#         else:
-#             return Response({'error':'user is not found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class RegistrationView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'email',
+                openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                required=True,
+                example=("example@gmail.com")
+            )
+        ],
+        operation_description=(
+                "Register Yourself in Luna\n"
+                "Introduce your gmail and code will be sent to your gmail account. "
+        ),
+    )
     def post(self, request, *args, **kwargs):
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
@@ -72,6 +63,64 @@ class RegistrationView(APIView):
 class RegistrationProfileValidationView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        manual_parameters=[
+                              openapi.Parameter(
+                                  'code',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("5fsf5sf")
+                              )
+                          ] + [
+
+                              openapi.Parameter(
+                                  'email',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("example@gmail.com")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'Repeat_password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'first_name',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("john")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'last_name',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("Lenon")
+                              )
+                          ],
+        operation_description=(
+                "Register Yourself in Luna (VALIDATION)\n"
+                "after reciving the code in gmail.\n"
+                "Introduce all required parameters "
+        ),
+
+    )
     def post(self, request, *args, **kwargs):
         code = request.data.get('code')
         email = request.data.get('email')
@@ -94,14 +143,6 @@ class RegistrationProfileValidationView(APIView):
                 {'error': 'Missing fields:', 'details': missing_fields},
                 status=status.HTTP_400_BAD_REQUEST
             )
-        # if not code or not email or not password or not repeat_password or not first_name or not last_name:
-        #     return Response({'error': 'Missing these parameters: '
-        #                               'code,'
-        #                               'username,email,'
-        #                               ' password,'
-        #                               ' repeat_password,'
-        #                               'first_name,'
-        #                               'last_name  '}, status=status.HTTP_400_BAD_REQUEST)
         try:
             registration_profile = RegistrationProfile.objects.get(code=code)
             user = registration_profile.user

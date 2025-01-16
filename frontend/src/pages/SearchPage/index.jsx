@@ -2,11 +2,8 @@ import styled from "styled-components";
 import SearchBarSearch from "../../components/SearchBarSearch/index.jsx";
 import RestaurantCard from "../../components/RestaurantCard/index.jsx";
 import ReviewCard from "../../components/ReviewCard/index.jsx";
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchRestaurantData} from "../../slice/restaurantSlice.js";
+import {useState} from "react";
 import {useRestaurantData} from "../../hooks/useRestaurantData.js";
-import {fetchReviewData} from "../../slice/reviewSlice.js";
 import {useReviewData} from "../../hooks/useReviewData.js";
 
 const SearchPageContainer = styled.div`
@@ -84,9 +81,9 @@ export default function SearchPage() {
                 </>
             )
         } else if (activeNavi === 'REVIEWS') {
-            return(
+            return (
                 <>
-                {reviewStatus === 'loading' && <div>Loading...</div>}
+                    {reviewStatus === 'loading' && <div>Loading...</div>}
                     {reviewStatus === 'failed' && <div>Error: {reviewError}</div>}
                     {reviewStatus === 'succeeded' && Array.isArray(reviewData) && reviewData.length > 0 ? (
                         reviewData.map((item) => (

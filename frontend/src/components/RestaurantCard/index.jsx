@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import StarRating from "../StarRating/index.jsx";
 import {useNavigate} from "react-router-dom";
+
 const RestaurantCardDiv = styled.div`
     //width: 20vw;
     max-width: 270px;
