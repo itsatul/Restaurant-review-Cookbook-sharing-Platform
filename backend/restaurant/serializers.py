@@ -31,7 +31,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
         fields = ['id', 'name', 'street', 'city', 'average_rating', 'zip', 'website', 'phone', 'email', 'opening_hours',
-                  'price_level', 'image', 'category', 'user']
+                  'price_level', 'image', 'category', 'user', 'country']
 
     def create(self, validated_data):
         # Extract category name
