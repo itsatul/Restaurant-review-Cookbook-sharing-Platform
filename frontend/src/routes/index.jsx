@@ -26,7 +26,7 @@ export default function Router() {
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/search" element={<SearchPage/>}/>
                     <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
-                    <Route path="/new-review/:id" element={<NewReview/>}/>
+                    {/*<Route path="/new-review/:id" element={<NewReview/>}/>*/}
                     {/*</Route>*/}
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/registration/message" element={<Message/>}/>
