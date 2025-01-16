@@ -23,7 +23,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         if instance.joined_date:
-            representation['joined_date'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
+            representation['joined_date'] = instance.joined_date.strftime('%B %Y')
         return representation
 
 

@@ -11,6 +11,7 @@ class RestaurantRewievs:
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
+    description = models.TextField()
     country = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
