@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
+from django.core.mail import send_mail
 
 
 class ListRestaurantAPIView(APIView):
@@ -28,6 +29,19 @@ class RestaurantCreateViewSet(APIView):
         serializer = RestaurantSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
+            send_mail(
+                'You have successfully registered ',
+                f'You have successfully registered {serializer.data["name"]}, Your restaurant has been created! \n'
+                f'Title : {serializer.data["name"]}\n'
+                f'Address : {serializer.data["street"]}\n'
+                f'City : {serializer.data["city"]}\n'
+                f'State: {serializer.data["zip"]}\n',
+                'Luna company',
+                [serializer.data["email"]],
+                fail_silently=False,
+
+            )
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView
@@ -65,6 +66,14 @@ class CreateReviewCommentAPIView(CreateAPIView):
             raise NotFound(detail="Review not found.")
         serializer.save(restaurant_review=review, user=self.request.user)
 
+        review_author = review.user  # Get the user who created the review
+        send_mail(
+        'New comment on your review!',
+        f'Hi {review_author.username}, someone commented on your review for {review.restaurant.name}.',
+        'Luna Company <noreply@luna.com>',
+        [review_author.email],
+        fail_silently=False,
+    )
 
 class DeleteReviewCommentAPIView(DestroyAPIView):
     serializer_class = ReviewCommentSerializer

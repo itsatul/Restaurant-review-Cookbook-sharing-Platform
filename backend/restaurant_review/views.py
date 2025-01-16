@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
 from rest_framework import status
 from rest_framework.exceptions import ValidationError, NotFound
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
@@ -100,6 +101,14 @@ class ToggleLikeReviewAPIView(GenericAPIView):
         else:
             review.liked_by.add(user)
             review.save()
+            review_author = review.user  # Get the user who created the review
+            send_mail(
+                'Your review got a like!',
+                f'Hi {review_author.username}, someone liked your review for {review.restaurant.name}.',
+                'Luna Company <noreply@luna.com>',
+                [review_author.email],
+                fail_silently=False,
+            )
         return Response(self.get_serializer(review).data, status=status.HTTP_200_OK)
 
 

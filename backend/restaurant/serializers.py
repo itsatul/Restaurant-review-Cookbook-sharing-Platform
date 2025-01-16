@@ -19,8 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
-    user = UserSerializer()
+    category = CategorySerializer(read_only=True)
+    user = UserSerializer(read_only=True)
     average_rating = serializers.DecimalField(
         read_only=True,
         max_digits=3,
@@ -32,3 +32,5 @@ class RestaurantSerializer(serializers.ModelSerializer):
         model = Restaurant
         fields = ['id', 'name', 'street', 'city', 'average_rating', 'zip', 'website', 'phone', 'email', 'opening_hours',
                   'price_level', 'image', 'category', 'user']
+
+
