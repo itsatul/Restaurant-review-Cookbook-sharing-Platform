@@ -21,8 +21,8 @@ const Container = styled.div`
 // `;
 
 const RestaurentBannerDiv = styled.div`
-    
-    
+
+
     background-image: url(${(props) => props.image});
     background-size: cover;
     background-position: center;
@@ -151,26 +151,41 @@ const NewReview = () => {
         }
 
         try {
+            const token = localStorage.getItem("access");
+
+            if (!token) {
+                alert("User is not authenticated. Please log in.");
+                navigate("/login");
+                return;
+            }
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
 
             const payload = {
                 text_content: reviewText,
                 rating: userRating,
-                restaurant: {
-                    name: restaurant.name,
-                },
-                user: {
-                    username: "some_username",
-                }
             };
 
+            // Ensure endpoint and method are correct
+            await api.post(`/reviews/new/${id}`, payload, config);
 
-            await api.post(`/reviews/new/${id}`, payload);
             alert("Review submitted successfully!");
             navigate(`/restaurant/${id}`);
         } catch (err) {
             console.error("Error submitting review:", err);
-            alert("Failed to submit review!");
+
+            if (err.response) {
+                alert(`Error: ${err.response.data.detail || "Failed to submit review!"}`);
+            } else {
+                alert("An unexpected error occurred.");
+            }
         }
+
+
     };
 
     const handleRatingChange = (rating) => {
@@ -189,13 +204,13 @@ const NewReview = () => {
     return (
         <Container>
             {/*<Banner image={restaurant.image}>*/}
-                <RestaurentBannerDiv image={restaurant.image}>
-                    <h1>{restaurant.name}</h1>
-                    <h2>{restaurant.category.name}</h2>
-                    <StarRating rating={restaurant.average_rating}/>
-                    <h3>{restaurant.description || 'No description available but you should try the restaurant!!!'}</h3>
-                    <h3>{`Address: ${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</h3>
-                </RestaurentBannerDiv>
+            <RestaurentBannerDiv image={restaurant.image}>
+                <h1>{restaurant.name}</h1>
+                <h2>{restaurant.category.name}</h2>
+                <StarRating rating={restaurant.average_rating}/>
+                <h3>{restaurant.description || 'No description available but you should try the restaurant!!!'}</h3>
+                <h3>{`Address: ${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</h3>
+            </RestaurentBannerDiv>
             {/*</Banner>*/}
 
             <MainPage>
