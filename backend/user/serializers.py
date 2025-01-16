@@ -26,6 +26,7 @@ class UserprofileSerializer(serializers.ModelSerializer):
             representation['joined_date'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
         return representation
 
+
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField()
     new_password = serializers.CharField()
@@ -40,8 +41,10 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     review_count = serializers.SerializerMethodField()
+
     def get_review_count(self, obj):
         return obj.user_reviews.count()
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'profile_picture', 'description', 'review_count' ]
+        fields = ['id', 'username', 'email', 'profile_picture', 'description', 'review_count']

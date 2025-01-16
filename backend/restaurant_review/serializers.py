@@ -50,10 +50,6 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         representation['liked_by'] = [
             user.username for user in instance.liked_by.all()
         ]
-        return representation
-
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
         if instance.created_at:
             representation['created_at'] = instance.created_at.strftime('%d.%m.%Y %H:%M')
         return representation
