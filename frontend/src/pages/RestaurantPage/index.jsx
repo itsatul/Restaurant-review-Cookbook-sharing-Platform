@@ -41,7 +41,7 @@ const ContectContainerDiv = styled.div`
 const RestaurantDetailsDiv = styled.div`
     flex-grow: 1;
     width: 30%;
-    height: 100px;
+    height: 200px;
     background-color: #F5F5F5;
 `
 const TimeDiv = styled.div`
@@ -55,6 +55,7 @@ const MoneyDiv = styled(TimeDiv)`
 `
 const RestaurantDetailsButtonContainer = styled(TimeDiv)`
     /* Add any additional or overridden styles here */
+    padding: 20px 0;
     justify-content: space-between;
 `
 const RestaurantDetailsButton = styled.button`
@@ -76,6 +77,32 @@ const ReviewDiv = styled.div`
     flex-grow: 1;
     background-color: aqua;
 `
+const SearchBarContainer = styled.div`
+    display: flex;
+    margin: 20px auto;
+    max-width: 500px;
+
+    input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px 0 0 5px;
+        background-color: aliceblue;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: orange;
+        color: white;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: darkorange;
+        }
+    }
+`;
 
 function RestaurantPage() {
     const navigate = useNavigate();

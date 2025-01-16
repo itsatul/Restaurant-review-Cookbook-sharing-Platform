@@ -87,15 +87,8 @@ function HomePage() {
         setLoading(true);
         setError("");
         try {
-            // const response = await api.get('/home');
-            // const data = response.data.results;
-            const data = [
-                {"id": 1, "name": "The Food Palace", "address": "123 Main St"},
-                {"id": 2, "name": "Pasta Heaven", "address": "456 Side St"},
-                {"id": 3, "name": "Burger World", "address": "789 King St"},
-                {"id": 4, "name": "Sushi Central", "address": "101 Ocean Ave"}
-            ]
-
+            const response = await api.get('/home');
+            const data = response.data;
             setRestaurants(data);
             setDefaultRestaurants(data);
         } catch (error) {
