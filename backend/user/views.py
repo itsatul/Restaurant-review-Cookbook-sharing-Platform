@@ -124,7 +124,7 @@ class UserProfileView(RetrieveUpdateAPIView):
         serializer = UserprofileSerializer(instance=instance, data=request.data, partial=True)
 
         if serializer.is_valid():
-            #updated_profile = serializer.save()
+            # updated_profile = serializer.save()
             updated_fields = serializer.validated_data
             updated_fields_str = "\n".join(
                 f"{key}: {value}" for key, value in updated_fields.items()
