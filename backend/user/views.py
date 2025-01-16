@@ -4,12 +4,13 @@ import string
 
 from django.core.mail import send_mail
 from django.db.models import Q
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from user.models import User
 from user.permissions import IsadminOrReadOnly
 from user.serializers import UserSerializer, UserprofileSerializer
@@ -20,18 +21,115 @@ class GetAllUsersView(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    @swagger_auto_schema(
+        operation_description="Retrieves all users. Only admins are allowed to access it. Authentication is required via Bearer token.",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(admin required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description="Post new user. Only admins are allowed to access it. Authentication is required via Bearer token. \n"
+                              "(`only testing purpose`)",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(admin required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
 
 class UserProfileView(RetrieveUpdateAPIView):
     serializer_class = UserprofileSerializer
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Retrieves my user. Authentication is required via Bearer token.",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
     def get_object(self):
         return self.request.user
+
+    @swagger_auto_schema(
+        operation_description="Update my user. Authentication is required via Bearer token.",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_description="Update my user. Authentication is required via Bearer token.",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
 
 
 class SearchUsersView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description=("Search for users by username or email. \n"
+                               "Authentication is required via Bearer token. \n\n"
+                               "To perform a search, append the `?search=` parameter to the URL. \n"
+                               "Example: `?search=user` to find all users containing 'user' in their username or email."),
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(Authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
     def get(self, request):
         search_string = request.query_params.get('search', '')
         users = User.objects.filter(
@@ -46,6 +144,19 @@ class RetrieveOnlyUsersById(GenericAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Retrieves Users by id. Authentication is required via Bearer token.",
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(Authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
+    )
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
@@ -99,6 +210,21 @@ def code_generator(length=6):
 class PasswordResetView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter(
+                'email',
+                openapi.IN_QUERY,
+                type=openapi.TYPE_STRING,
+                required=True,
+                example=("example@gmail.com")
+            )
+        ],
+        operation_description=(
+                "Reset the password in case you forgot it\n"
+                "Introduce your gmail and code will be sent "
+        ),
+    )
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
 
@@ -125,6 +251,55 @@ class PasswordResetView(APIView):
 class PasswordValidationView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        manual_parameters=[
+                              openapi.Parameter(
+                                  'email',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("example@gmail.com")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'code',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("5fsf5sf")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("12345678")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'New_password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'New_password_Repeat',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ],
+        operation_description=(
+                "Reset the password in case you forgot it (VALIDATION)\n"
+                "after reciving the code in gmail.\n"
+                "Introduce all required parameters "
+        ),
+
+    )
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
         code = request.data.get('code')
