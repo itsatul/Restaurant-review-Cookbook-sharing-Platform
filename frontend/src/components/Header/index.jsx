@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/logo.svg";
 import {NavLink, useNavigate} from "react-router-dom";
@@ -50,7 +50,22 @@ const Button = styled.button`
 `;
 
 function Header() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
+
+    // Check localStorage for token when the component mounts
+    useEffect(() => {
+        const token = localStorage.getItem("access");
+        if (token) {
+            setIsLoggedIn(true);
+        }
+    }, [navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("access"); // Remove token from localStorage
+        setIsLoggedIn(false); // Update the login state
+        navigate("/"); // Redirect to the homepage
+    };
     return (
         <HeaderContainer>
             <Logo src={logoImage}/>
@@ -64,8 +79,16 @@ function Header() {
                 <NavLink to="/profile">
                     Profile
                 </NavLink>
-                <Button onClick={() => navigate('/registration')}>SIGNUP</Button>
-                <Button onClick={() => navigate('/login')}>LOGIN</Button>
+                {isLoggedIn ? (
+                    <>
+                        <Button onClick={handleLogout}>LOGOUT</Button>
+                    </>
+                ) : (
+                    <>
+                        <Button onClick={() => navigate("/registration")}>SIGNUP</Button>
+                        <Button onClick={() => navigate("/login")}>LOGIN</Button>
+                    </>
+                )}
             </Nav>
         </HeaderContainer>
     );
