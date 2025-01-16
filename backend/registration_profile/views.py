@@ -3,6 +3,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from registration_profile.models import RegistrationProfile
 from registration_profile.serializers import RegistrationSerializer
@@ -10,7 +11,6 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from drf_yasg import openapi
 
 User = get_user_model()
 
