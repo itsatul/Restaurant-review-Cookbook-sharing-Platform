@@ -6,7 +6,7 @@ const titleColor = '#4C4C4C'
 const inputAColor = '#979797'
 const borderColor = '#EBEBEB'
 const whiteColor = '#ffffff'
-
+const errorColor = '#B00000'
 export const ContainerAuthDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -54,6 +54,7 @@ export const AuthFormForm = styled.form`
         font-size: 1.2rem;
         font-weight: inherit;
         background-color: ${whiteColor};
+
         &::placeholder {
             color: ${inputAColor};
         }
@@ -78,6 +79,12 @@ export const AuthFormForm = styled.form`
         }
     }
 
+    .error-box {
+        align-self: flex-start;
+        color:${errorColor};
+        font-size: .8rem;
+        font-weight: lighter;
+    }
 
     .input-box {
         max-width: 500px;
