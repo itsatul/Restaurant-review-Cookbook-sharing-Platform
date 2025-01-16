@@ -5,7 +5,6 @@ import {login, logout} from './slice/userSlice.js'
 import axios from "axios";
 
 function App() {
-
     // temporary url for dev
     // const baseUrl = 'https://motion.propulsion-home.ch/backend/api'
     const baseUrl = 'https://luna-project-batch30.propulsion-learn.ch/backend/api'
@@ -19,7 +18,7 @@ function App() {
         if (token) {
             axios.post(baseUrl + "/auth/token/verify/", {token})
                 .then(() => {
-                    dispatch(login({access: token, user: user}));
+                    dispatch(login({access: token}));
                 })
                 .catch(() => {
                     dispatch(logout());
@@ -34,7 +33,7 @@ function App() {
 
     if (accessToken || accessToken === null) return <Router/>;
     return <p>Loading</p>;
-    return <Router/>
+
 }
 
 export default App;
