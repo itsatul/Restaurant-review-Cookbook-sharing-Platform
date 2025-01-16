@@ -14,7 +14,9 @@ class ListRestaurantAPIView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request):
-        restaurants = Restaurant.objects.all()
+        restaurants = Restaurant.objects.annotate(
+            average_rating=Avg('restaurant_reviews__rating')
+        )
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -36,9 +38,15 @@ class ListRestaurantByCategoryAPIView(APIView):
     def get(self, request):
         category_name = request.query_params.get('category', None)
         if category_name:
-            restaurants = Restaurant.objects.filter(category__name__icontains=category_name)
+            restaurants = Restaurant.objects.filter(
+                category__name__icontains=category_name
+            ).annotate(
+                average_rating=Avg('restaurant_reviews__rating')
+            )
         else:
-            restaurants = Restaurant.objects.all()
+            restaurants = Restaurant.objects.annotate(
+                average_rating=Avg('restaurant_reviews__rating')
+            )
 
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -48,7 +56,11 @@ class RestaurantCreatedByUserAPIView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, user_id):
-        restaurants = Restaurant.objects.filter(user_id=user_id).order_by('created_at')
+        restaurants = Restaurant.objects.filter(
+            user_id=user_id
+        ).annotate(
+            average_rating=Avg('restaurant_reviews__rating')
+        ).order_by('created_at')
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -58,7 +70,9 @@ class RestaurantDetailsByRestaurantIdAPIView(APIView):
 
     def get(self, request, restaurant_id):
         try:
-            restaurant = Restaurant.objects.get(id=restaurant_id)
+            restaurant = Restaurant.objects.annotate(
+                average_rating=Avg('restaurant_reviews__rating')
+            ).get(id=restaurant_id)
             serializer = RestaurantSerializer(restaurant)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
