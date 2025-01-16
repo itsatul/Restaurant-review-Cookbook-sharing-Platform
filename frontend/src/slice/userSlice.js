@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { access: undefined, user: undefined },
+  initialState: { access: undefined },
   reducers: {
     login: (state, action) => {
       state.access = action.payload.access;

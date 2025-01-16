@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {
     AuthFormForm,
     ContainerAuthDiv,
@@ -17,14 +17,15 @@ const Login = () => {
         const baseUrl = 'https://luna-project-batch30.propulsion-learn.ch/backend/api'
 
         const [userInfo, setUserInfo] = useState({
-        email: "jihye@admin.com",
-        password: "test123456",
-    });
+            email: "jihye@admin.com",
+            password: "test123456",
+        });
         const {email, password} = userInfo;
         const [error, setError] = useState(null);
 
         // const {username, password} = userInfo
         const dispatch = useDispatch();
+        const navigate = useNavigate()
 
         const onChange = (e) => {
             setUserInfo({...userInfo, [e.target.name]: e.target.value});
@@ -43,8 +44,8 @@ const Login = () => {
                         setError(null)
                         dispatch(login(res.data));
                         localStorage.setItem("access", res.data.access);
-                        // const from = location.state?.from || {pathname: "/"};
-                        // navigate(from);
+                        const from = location.state?.from || {pathname: "/"};
+                        navigate(from);
                     })
                     .catch((err) => {
                         console.log(err)

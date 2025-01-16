@@ -7,6 +7,8 @@ import {
 
 
 const Registration = () => {
+    const [userInfo, setUserInfo] = useState({email: ""});
+
     return (
         <ContainerAuthDiv>
             <ContainerHeaderDiv>
