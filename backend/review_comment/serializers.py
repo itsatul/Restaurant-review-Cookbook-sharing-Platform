@@ -27,8 +27,14 @@ class ReviewCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReviewComment
-        fields = ['id', 'comment', 'restaurant_review', 'user']
-        read_only_fields = ['id', 'restaurant_review', 'user']
+        fields = ['id', 'comment', 'restaurant_review', 'user', 'date_created_comment']
+        read_only_fields = ['id', 'restaurant_review', 'user', 'date_created_comment']
+
+        def to_representation(self, instance):
+            representation = super().to_representation(instance)
+            if instance.date_created_comment:
+                representation['date_created_comment'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
+            return representation
 
 
 class CreateReviewCommentSerializer(serializers.ModelSerializer):

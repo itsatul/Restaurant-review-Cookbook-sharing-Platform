@@ -41,8 +41,8 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RestaurantReview
-        fields = ['id', 'text_content', 'rating', 'liked_by', 'like_count', 'comment_count', 'restaurant', 'user']
-        read_only_fields = ['id', 'restaurant', 'user', 'liked_by', 'like_count', 'comment_count']
+        fields = ['id', 'text_content', 'rating', 'liked_by', 'like_count', 'comment_count', 'restaurant', 'user', 'created_at']
+        read_only_fields = ['id', 'restaurant', 'user', 'liked_by', 'like_count', 'comment_count', 'created_at']
         ref_name = "RestaurantReviewSerializer"
 
     def to_representation(self, instance):
@@ -50,4 +50,10 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         representation['liked_by'] = [
             user.username for user in instance.liked_by.all()
         ]
+        return representation
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.created_at:
+            representation['created_at'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
         return representation
