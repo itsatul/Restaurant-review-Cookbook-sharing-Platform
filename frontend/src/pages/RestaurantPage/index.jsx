@@ -25,13 +25,9 @@ function RestaurantPage() {
     const RestaurentBannerDiv = styled.div`
         flex-grow: 1;
         padding: 1rem 5rem;
-        background-color: rgba(19, 18, 18, 0.3); /* Example background */
-
-
-        /* Target all h tags inside BannerDiv */
-
+        background-color: rgba(19, 18, 18, 0.3); 
         h1, h2, h3, h4, h5, h6 {
-            color: white; /* Change this to your desired color */
+            color: white;
         }
     `;
     const {id} = useParams(); // Extract restaurant ID from the URL
@@ -60,11 +56,11 @@ function RestaurantPage() {
     };
 
     if (loading) {
-        return <p>Loading...</p>; // Display loading state
+        return <p>Loading...</p>;
     }
 
     if (error) {
-        return <p>{error}</p>; // Display error state
+        return <p>{error}</p>;
     }
 
     return (<Container>
@@ -75,7 +71,6 @@ function RestaurantPage() {
                     <StarRating rating={restaurant.average_rating}/>
                     <h3>{restaurant.description || 'No description available but you should try the restaurant!!!'}</h3>
                     <h3>{`Address: ${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</h3>
-                    {/* Add more fields as per the API response */}
                 </RestaurentBannerDiv>
 
             </Banner>
