@@ -136,7 +136,8 @@ function RestaurantPage() {
                         <RestaurantPrice priceLevel={restaurant.price_level}/>
                     </MoneyDiv>
                     <RestaurantDetailsButtonContainer>
-                        <RestaurantDetailsButton onClick={() => navigate(`/new-review/${id}`)}>WRITE A REVIEW</RestaurantDetailsButton>
+                        <RestaurantDetailsButton onClick={() => navigate(`/new-review/${id}`)}>WRITE A
+                            REVIEW</RestaurantDetailsButton>
                         <RestaurantDetailsButton onClick={() => navigate('#')}>EDIT DATA</RestaurantDetailsButton>
                     </RestaurantDetailsButtonContainer>
 

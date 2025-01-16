@@ -92,7 +92,19 @@ class UserProfileView(RetrieveUpdateAPIView):
         ]
     )
     def put(self, request, *args, **kwargs):
-        return super().put(request, *args, **kwargs)
+        serializer = UserprofileSerializer(instance=self.get_object(), data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            send_mail(
+                f'{serializer.data["username"]}Your User Profile have been updated.',
+                'Updated your user profile',
+                'Luna company',
+                [serializer.data["email"]],
+                fail_silently=False,
+            )
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(
         operation_description="Update my user. Authentication is required via Bearer token.",
@@ -108,7 +120,28 @@ class UserProfileView(RetrieveUpdateAPIView):
         ]
     )
     def patch(self, request, *args, **kwargs):
-        return super().patch(request, *args, **kwargs)
+        instance = self.get_object()
+        serializer = UserprofileSerializer(instance=instance, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            # updated_profile = serializer.save()
+            updated_fields = serializer.validated_data
+            updated_fields_str = "\n".join(
+                f"{key}: {value}" for key, value in updated_fields.items()
+            )
+            send_mail(
+                f'{serializer.data["username"]}Your User Profile have been updated.',
+
+                f'The following fields in your user profile were updated:\n\n'
+                f'{updated_fields_str}\n\n'
+                f'Thank you for updating your profile!',
+                'Luna company',
+                [serializer.data["email"]],
+                fail_silently=False,
+            )
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class SearchUsersView(APIView):
