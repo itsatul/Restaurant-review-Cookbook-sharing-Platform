@@ -1,11 +1,10 @@
 # Create your views here.
+from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from restaurant_category.models import Category
 from restaurant_category.serializers import CategorySerializer
-from drf_yasg import openapi
 
 
 class CategoryListView(APIView):
@@ -22,7 +21,6 @@ class CategoryListView(APIView):
             )
         ]
     )
-
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)

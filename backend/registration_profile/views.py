@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 User = get_user_model()
+
+
 class RegistrationView(APIView):
     permission_classes = [AllowAny]
 
@@ -31,7 +33,6 @@ class RegistrationView(APIView):
                 "Introduce your gmail and code will be sent to your gmail account. "
         ),
     )
-
     def post(self, request, *args, **kwargs):
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
@@ -58,6 +59,7 @@ class RegistrationView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RegistrationProfileValidationView(APIView):
     permission_classes = [AllowAny]
 
@@ -70,7 +72,7 @@ class RegistrationProfileValidationView(APIView):
                                   required=True,
                                   example=("5fsf5sf")
                               )
-                          ] +[
+                          ] + [
 
                               openapi.Parameter(
                                   'email',
@@ -79,7 +81,7 @@ class RegistrationProfileValidationView(APIView):
                                   required=True,
                                   example=("example@gmail.com")
                               )
-                          ] +  [
+                          ] + [
                               openapi.Parameter(
                                   'password',
                                   openapi.IN_QUERY,
@@ -103,7 +105,7 @@ class RegistrationProfileValidationView(APIView):
                                   required=True,
                                   example=("john")
                               )
-                          ]+ [
+                          ] + [
                               openapi.Parameter(
                                   'last_name',
                                   openapi.IN_QUERY,
@@ -119,7 +121,6 @@ class RegistrationProfileValidationView(APIView):
         ),
 
     )
-
     def post(self, request, *args, **kwargs):
         code = request.data.get('code')
         email = request.data.get('email')

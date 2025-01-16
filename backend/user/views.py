@@ -115,23 +115,21 @@ class SearchUsersView(APIView):
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
-    operation_description = ("Search for users by username or email. \n"
-    "Authentication is required via Bearer token. \n\n"
-    "To perform a search, append the `?search=` parameter to the URL. \n"
-    "Example: `?search=user` to find all users containing 'user' in their username or email."),
-    responses = {200: UserSerializer(many=True)},
-    manual_parameters = [
-        openapi.Parameter(
-            'Authorization',
-            openapi.IN_HEADER,
-            description="Bearer token for authentication(Authenticated required)",
-            type=openapi.TYPE_STRING,
-            required=True
-        )
-    ]
+        operation_description=("Search for users by username or email. \n"
+                               "Authentication is required via Bearer token. \n\n"
+                               "To perform a search, append the `?search=` parameter to the URL. \n"
+                               "Example: `?search=user` to find all users containing 'user' in their username or email."),
+        responses={200: UserSerializer(many=True)},
+        manual_parameters=[
+            openapi.Parameter(
+                'Authorization',
+                openapi.IN_HEADER,
+                description="Bearer token for authentication(Authenticated required)",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ]
     )
-
-
     def get(self, request):
         search_string = request.query_params.get('search', '')
         users = User.objects.filter(
@@ -226,8 +224,7 @@ class PasswordResetView(APIView):
                 "Reset the password in case you forgot it\n"
                 "Introduce your gmail and code will be sent "
         ),
-        )
-
+    )
     def post(self, request, *args, **kwargs):
         email = request.data.get('email')
 
@@ -256,46 +253,46 @@ class PasswordValidationView(APIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter(
-                'email',
-                openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                required=True,
-                example=("example@gmail.com")
-            )
-        ]+[
-            openapi.Parameter(
-                'code',
-                openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                required=True,
-                example=("5fsf5sf")
-            )
-        ]+[
-            openapi.Parameter(
-                'password',
-                openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                required=True,
-                example=("12345678")
-            )
-        ]+[
-            openapi.Parameter(
-                'New_password',
-                openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                required=True,
-                example=("9342345f")
-            )
-        ]+[
-            openapi.Parameter(
-                'New_password_Repeat',
-                openapi.IN_QUERY,
-                type=openapi.TYPE_STRING,
-                required=True,
-                example=("9342345f")
-            )
-        ],
+                              openapi.Parameter(
+                                  'email',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("example@gmail.com")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'code',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("5fsf5sf")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("12345678")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'New_password',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ] + [
+                              openapi.Parameter(
+                                  'New_password_Repeat',
+                                  openapi.IN_QUERY,
+                                  type=openapi.TYPE_STRING,
+                                  required=True,
+                                  example=("9342345f")
+                              )
+                          ],
         operation_description=(
                 "Reset the password in case you forgot it (VALIDATION)\n"
                 "after reciving the code in gmail.\n"
