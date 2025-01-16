@@ -33,7 +33,7 @@ class ReviewCommentSerializer(serializers.ModelSerializer):
         def to_representation(self, instance):
             representation = super().to_representation(instance)
             if instance.date_created_comment:
-                representation['date_created_comment'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
+                representation['date_created_comment'] = instance.date_created_comment.strftime('%d.%m.%Y %H:%M')
             return representation
 
 

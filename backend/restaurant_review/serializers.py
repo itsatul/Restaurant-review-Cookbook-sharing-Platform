@@ -55,5 +55,5 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         if instance.created_at:
-            representation['created_at'] = instance.joined_date.strftime('%d.%m.%Y %H:%M')
+            representation['created_at'] = instance.created_at.strftime('%d.%m.%Y %H:%M')
         return representation
