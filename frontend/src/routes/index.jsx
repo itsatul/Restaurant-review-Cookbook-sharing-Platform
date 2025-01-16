@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchPage from "../pages/SearchPage/index.jsx";
 import HomePage from "../pages/HomePage/index.jsx";
 import Layout from "../layout/index.jsx";
@@ -10,33 +10,28 @@ import ForgotPassword from "../pages/ForgotPassword.jsx";
 import NewPassword from "../pages/NewPassword.jsx";
 import LikeButton from "../components/LikeButton/index.jsx";
 import RestaurantPage from "../pages/RestaurantPage/index.jsx";
-
+import NewReview from "../pages/NewReviewPage/index.jsx";
 
 export default function Router() {
-
-    // changes will follow as pages are to be wrapped by layout with header and footer
-
     return (
         <BrowserRouter>
             <Routes>
-                {/*placeholder for layout*/}
-                {/*<Route element={<LayoutWithHeaderAndFooter/>}>*/}
-                {/*placeholder for homepage*/}
-                <Route element={<Layout/>}>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/search" element={<SearchPage/>}/>
-                    <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
-                    {/*</Route>*/}
-                    <Route path="/registration" element={<Registration/>}/>
-                    <Route path="/registration/message" element={<Message/>}/>
-                    <Route path="/registration/verification" element={<Verification/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/forgot-password" element={<ForgotPassword/>}/>
-                    <Route path="/new-password" element={<NewPassword/>}/>
-                    <Route path="*" element={<div>404 Page Not Found</div>}/>
-                    <Route path="/test" element={<LikeButton/>}/>
+                {/* Layout with header and footer */}
+                <Route element={<Layout />}>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/restaurant/:id" element={<RestaurantPage />} />
+                    <Route path="/new-review/:id" element={<NewReview />} />
+                    <Route path="/registration" element={<Registration />} />
+                    <Route path="/registration/message" element={<Message />} />
+                    <Route path="/registration/verification" element={<Verification />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/new-password" element={<NewPassword />} />
+                    <Route path="*" element={<div>404 Page Not Found</div>} />
+                    <Route path="/test" element={<LikeButton />} />
                 </Route>
             </Routes>
         </BrowserRouter>
-    )
+    );
 }

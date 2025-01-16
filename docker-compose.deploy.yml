@@ -7,6 +7,12 @@ x-postgres-environment: &postgres-environment
 
 x-django-environment: &django-environment
   DJANGO_DEBUG:
+  DEFAULT_FROM_EMAIL:
+  EMAIL_USE_TLS:
+  EMAIL_HOST:
+  EMAIL_HOST_USER:
+  EMAIL_HOST_PASSWORD:
+  EMAIL_PORT:
 
 services:
   backend:

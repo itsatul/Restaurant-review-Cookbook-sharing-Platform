@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.db.models import Avg
 from rest_framework import status
 from rest_framework.exceptions import NotFound, PermissionDenied
@@ -28,6 +29,19 @@ class RestaurantCreateViewSet(APIView):
         serializer = RestaurantSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
+            send_mail(
+                'You have successfully registered ',
+                f'You have successfully registered {serializer.data["name"]}, Your restaurant has been created! \n'
+                f'Title : {serializer.data["name"]}\n'
+                f'Address : {serializer.data["street"]}\n'
+                f'City : {serializer.data["city"]}\n'
+                f'State: {serializer.data["zip"]}\n',
+                'Luna company',
+                [serializer.data["email"]],
+                fail_silently=False,
+
+            )
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,7 +74,7 @@ class RestaurantCreatedByUserAPIView(APIView):
             user_id=user_id
         ).annotate(
             average_rating=Avg('restaurant_reviews__rating')
-        ).order_by('created_at')
+        )
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
