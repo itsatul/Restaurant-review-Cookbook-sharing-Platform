@@ -30,8 +30,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'description','street', 'city', 'average_rating', 'zip', 'website', 'phone', 'email', 'opening_hours',
+        fields = ['id', 'name', 'description', 'street', 'city', 'average_rating', 'zip', 'website', 'phone', 'email',
+                  'opening_hours',
                   'price_level', 'image', 'country', 'category', 'user', ]
         ref_name = 'Restaurant2'
-
-
