@@ -128,6 +128,7 @@ class UserProfileView(RetrieveUpdateAPIView):
             updated_fields_str = "\n".join(
                 f"{key}: {value}" for key, value in updated_fields.items()
             )
+            serializer.save()
             send_mail(
                 f'{serializer.data["username"]}Your User Profile have been updated.',
 
