@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {api} from "../../axios/axios.js";
 import styled from "styled-components";
@@ -108,11 +108,15 @@ function RestaurantPage() {
     const navigate = useNavigate();
     const {id} = useParams(); // Extract restaurant ID from the URL
     const [restaurant, setRestaurant] = useState(null); // State to store restaurant data
-    const [loading, setLoading] = useState(true); // State to handle loading
-    const [error, setError] = useState(null); // State to handle errors
+    const [loadingRestaurant, setLoadingRestaurant] = useState(true); // State to handle loading
+    const [loadingRestaurantError, setLoadingRestaurantError] = useState(null); // State to handle errors
+    const [reviews, setReviews] = useState(null); // State to store restaurant data
+    const [loadingReviews, setLoadingReviews] = useState(true); // State to handle loading
+    const [loadingReviewsError, setLoadingReviewsError] = useState(null); // State to handle errors
 
     useEffect(() => {
         fetchRestaurantPageData();
+        fetchRestaurantReviewData();
     }, [id]);
 
     const fetchRestaurantPageData = async () => {
@@ -124,19 +128,43 @@ function RestaurantPage() {
 
             setRestaurant(data);
         } catch (err) {
-            setError('Failed to load restaurant data'); // Handle errors
-            setLoading(false);
+            setLoadingRestaurantError('Failed to load restaurant data'); // Handle errors
+            setLoadingRestaurant(false);
         } finally {
-            setLoading(false);
+            setLoadingRestaurant(false);
         }
     };
 
-    if (loading) {
+        if (loadingRestaurant) {
         return <p>Loading...</p>;
     }
 
-    if (error) {
-        return <p>{error}</p>;
+    if (loadingRestaurantError) {
+        return <p>{loadingRestaurantError}</p>;
+    }
+
+    const fetchRestaurantReviewData = async () => {
+        try {
+            console.log(reviews)
+            const response = await api.get(`/reviews/restaurants/${id}`); // Fetch data from the API
+            const data = response.data;
+            console.log(data)
+
+            setReviews(data);
+        } catch (err) {
+            setLoadingReviewsError('Failed to load restaurant Review data'); // Handle errors
+            setLoadingReviews(false);
+        } finally {
+            setLoadingReviews(false);
+        }
+    };
+
+    if (loadingReviews) {
+        return <p>Loading...</p>;
+    }
+
+    if (loadingReviewsError) {
+        return <p>{loadingReviewsError}</p>;
     }
 
     return (<Container>
@@ -152,6 +180,7 @@ function RestaurantPage() {
             <ContectContainerDiv>
                 <ReviewDiv>
                     <h1>Reviews</h1>
+
                 </ReviewDiv>
                 <RestaurantDetailsDiv>
                     <TimeDiv>
