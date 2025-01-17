@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import StarRating from "../StarRating/index.jsx";
 import {useUserRestaurants} from "../../hooks/useUserRestaurants.js";
+import {useNavigate} from "react-router-dom";
 
 const ReviewCardDiv = styled.div`
     width: 100%%;
@@ -52,7 +53,7 @@ const ButtonDiv = styled.div`
 `
 
 export default function ProfileRestaurantCard({userId, activeNav}) {
-
+    const navigate = useNavigate()
     const {
         data: userRestaurantData,
         status: userRestaurantStatus,
@@ -81,7 +82,7 @@ export default function ProfileRestaurantCard({userId, activeNav}) {
                 </ReviewCardDiv>
             ))}
             <ButtonDiv>
-                <button>Create Restaurant</button>
+                <button onClick={()=>navigate("/create-restaurant")}>Create Restaurant</button>
             </ButtonDiv>
         </>
     )

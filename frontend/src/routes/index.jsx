@@ -14,6 +14,7 @@ import ProfilePage from "../pages/ProfilePage/index.jsx";
 import NewReview from "../pages/NewReviewPage/index.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import TestProtectedPage from "../pages/SearchPage/TestProtectedPage.jsx";
+import CreateRestaurant from "../pages/CreateRestaurantPage/index.jsx";
 
 export default function Router() {
     return (
@@ -35,6 +36,7 @@ export default function Router() {
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
                     <Route path="/new-password" element={<NewPassword/>}/>
                     <Route path="*" element={<div>404 Page Not Found</div>}/>
+                   <Route path="/create-restaurant" element={<CreateRestaurant/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
