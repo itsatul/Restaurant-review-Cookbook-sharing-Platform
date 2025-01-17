@@ -12,17 +12,17 @@ import EditUserProfile from "../../components/EditProfile/index.jsx";
 
 const ProfilePageContainer = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: relative;
 
     .banner-image {
         width: 100%;
-        height: 25%;
+        height: 100%;
         z-index: 0;
 
         img {
             width: 100%;
-            height: 100%;
+            height: 25%;
         }
     }
 `
@@ -40,14 +40,17 @@ const ProfileContainer = styled.div`
 
     .profile-container-left {
         width: 30%;
+        z-index: 1;
 
         .profile-image {
             width: 100%;
-            height: 45%;
+            height: 50%;
 
             img {
                 width: 100%;
+                min-width: 200px;
                 height: 100%;
+                min-height: 180px;
             }
         }
     }
@@ -254,7 +257,7 @@ export default function ProfilePage() {
     return (
         <ProfilePageContainer>
             <div className={'banner-image'}>
-                <img src={userData.banner_picture}/>
+                <img className={'banner-image'} src={userData.banner_picture}/>
             </div>
             <ProfileContainer>
                 <div className={'profile-container-left'}>
