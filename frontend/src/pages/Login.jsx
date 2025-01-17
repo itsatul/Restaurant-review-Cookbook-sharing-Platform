@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {
     AuthFormForm,
     ContainerAuthDiv,
@@ -23,6 +23,7 @@ const Login = () => {
         // const {username, password} = userInfo
         const dispatch = useDispatch();
         const navigate = useNavigate()
+        const location = useLocation();
 
         const onChange = (e) => {
             setUserInfo({...userInfo, [e.target.name]: e.target.value});
