@@ -8,8 +8,9 @@ import Registration from "../pages/Registration.jsx";
 import Message from "../pages/Message.jsx";
 import ForgotPassword from "../pages/ForgotPassword.jsx";
 import NewPassword from "../pages/NewPassword.jsx";
-import LikeButton from "../components/LikeButton/index.jsx";
 import RestaurantPage from "../pages/RestaurantPage/index.jsx";
+import ProfilePage from "../pages/ProfilePage/index.jsx";
+
 import NewReview from "../pages/NewReviewPage/index.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import TestProtectedPage from "../pages/SearchPage/TestProtectedPage.jsx";
@@ -25,7 +26,7 @@ export default function Router() {
                     <Route path="/restaurant/:id" element={<RestaurantPage/>}/>
                     <Route path="/new-review/:id" element={<NewReview/>}/>
                     <Route element={<ProtectedRoute/>}>
-                        <Route path="/testprotected" element={<TestProtectedPage/>}/>
+                        <Route path="/profile" element={<ProfilePage/>}/>
                     </Route>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/registration/message" element={<Message/>}/>
@@ -34,7 +35,6 @@ export default function Router() {
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
                     <Route path="/new-password" element={<NewPassword/>}/>
                     <Route path="*" element={<div>404 Page Not Found</div>}/>
-                    <Route path="/test" element={<LikeButton/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
