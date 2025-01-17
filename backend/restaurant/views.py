@@ -5,6 +5,7 @@ from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from restaurant.models import Restaurant
 from restaurant.serializers import RestaurantSerializer
 from restaurant_review.permissions import IsOwnerOrAdminOrReadOnly
@@ -73,7 +74,7 @@ class RestaurantCreatedByUserAPIView(APIView):
             user_id=user_id
         ).annotate(
             average_rating=Avg('restaurant_reviews__rating')
-        ).order_by('created_at')
+        )
         serializer = RestaurantSerializer(restaurants, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

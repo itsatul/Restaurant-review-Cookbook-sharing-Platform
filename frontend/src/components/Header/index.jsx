@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/logo.svg";
 import {NavLink, useNavigate} from "react-router-dom";
+import {logout} from "../../slice/userSlice.js";
+import {useDispatch} from "react-redux";
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -52,7 +54,7 @@ const Button = styled.button`
 function Header() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
-
+    const dispatch = useDispatch()
     // Check localStorage for token when the component mounts
     useEffect(() => {
         const token = localStorage.getItem("access");
@@ -63,8 +65,10 @@ function Header() {
 
     const handleLogout = () => {
         localStorage.removeItem("access"); // Remove token from localStorage
+        dispatch(logout());
         setIsLoggedIn(false); // Update the login state
         navigate("/"); // Redirect to the homepage
+
     };
     return (
         <HeaderContainer>

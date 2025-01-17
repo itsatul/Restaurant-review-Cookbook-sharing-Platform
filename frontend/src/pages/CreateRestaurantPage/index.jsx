@@ -65,13 +65,13 @@ export default function CreateRestaurant() {
                 return;
             }
 
-            // const token = localStorage.getItem("access");
-            // if (!token) {
-            //     console.error("User is not authenticated. Please log in.");
-            // }
+            const token = localStorage.getItem("access");
+            if (!token) {
+                console.error("User is not authenticated. Please log in.");
+            }
             const config = {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NTQyNDkzLCJpYXQiOjE3MzcxMTA0OTMsImp0aSI6ImQ3OTlmNjYzZDVlODQzMzRiN2JmNTk4NTM4N2Y1MDFkIiwidXNlcl9pZCI6NjZ9.06HccLmNHpv5xHJEjEnBlVdckHL0uRaH1xcuC5ORSmk`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
             };

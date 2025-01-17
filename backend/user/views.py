@@ -11,13 +11,13 @@ from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveU
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from user.models import User
-from user.permissions import IsadminOrReadOnly
 from user.serializers import UserSerializer, UserprofileSerializer
 
 
 class GetAllUsersView(ListCreateAPIView):
-    permission_classes = [IsadminOrReadOnly]
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -129,6 +129,7 @@ class UserProfileView(RetrieveUpdateAPIView):
             updated_fields_str = "\n".join(
                 f"{key}: {value}" for key, value in updated_fields.items()
             )
+            serializer.save()
             send_mail(
                 f'{serializer.data["username"]}Your User Profile have been updated.',
 
