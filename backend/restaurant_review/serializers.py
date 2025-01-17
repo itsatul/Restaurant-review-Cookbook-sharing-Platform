@@ -18,6 +18,7 @@ class OwnerSerializer(serializers.ModelSerializer):
 
     def get_comment_count(self, obj):
         return obj.user_comments.count()
+
     class Meta:
         model = User
         fields = ['id', 'username', 'review_count', 'comment_count', 'profile_picture']
@@ -34,13 +35,14 @@ class RestaurantSerializer(serializers.ModelSerializer):
 class RestaurantReviewSerializer(serializers.ModelSerializer):
     liked_by = serializers.SerializerMethodField()
     like_count = serializers.SerializerMethodField()
-    # review_count = serializers.SerializerMethodField()
 
+    # review_count = serializers.SerializerMethodField()
 
     # def get_review_count(self, obj):
     #     return len(obj.user_reviews.all())
     def get_liked_by(self, obj):
         return [user.username for user in obj.liked_by.all()]
+
     def get_like_count(self, obj):
         return len(obj.liked_by.all())
 
@@ -54,8 +56,9 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RestaurantReview
-        fields = ['id', 'text_content', 'rating', 'liked_by', 'like_count', 'comment_count', 'restaurant', 'user', 'created_at']
-        read_only_fields = ['id', 'restaurant', 'user', 'liked_by', 'like_count',  'comment_count', 'created_at']
+        fields = ['id', 'text_content', 'rating', 'liked_by', 'like_count', 'comment_count', 'restaurant', 'user',
+                  'created_at']
+        read_only_fields = ['id', 'restaurant', 'user', 'liked_by', 'like_count', 'comment_count', 'created_at']
         ref_name = "RestaurantReviewSerializer"
 
     def to_representation(self, instance):
@@ -82,4 +85,3 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
         ])
 
         return ordered_representation
-
