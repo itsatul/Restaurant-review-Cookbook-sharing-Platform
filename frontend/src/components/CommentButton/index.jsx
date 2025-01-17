@@ -6,7 +6,7 @@ const CommentButtonDiv = styled.button`
     height: 33px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
-    
+
     color: #FFFFFF;
     font-weight: 300;
 
@@ -27,7 +27,6 @@ export default function CommentButton() {
     return (
         <>
             <CommentButtonDiv>
-                <p>Comment 10 </p>
             </CommentButtonDiv>
         </>
     )
