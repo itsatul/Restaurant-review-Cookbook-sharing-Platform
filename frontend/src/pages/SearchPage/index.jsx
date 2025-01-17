@@ -60,12 +60,10 @@ export default function SearchPage() {
         USERS: 'USERS',
     }
     const [activeNavi, setActiveNavi] = useState(NAVI_ITEMS.RESTAURANTS);
-    console.log('Active Navi:', activeNavi);
 
     // returning according content dependent on chosen navigation
     const getContent = () => {
         if (activeNavi === 'RESTAURANTS') {
-            console.log('restaurants active')
             return (
                 <>
                     {/*error handling included here to avoid early returns which would lead to rendering issues*/}
