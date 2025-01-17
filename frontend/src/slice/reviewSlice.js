@@ -21,7 +21,7 @@ export const fetchReviewsByUser = createAsyncThunk(
     "review/fetchReviewsByUser",
     async (userId) => {
         const response = await axios.get(
-            `http://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/user/${userId}/`
+            `https://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/user/${userId}/`
         );
         return {userId, reviews: response.data};
     }
@@ -32,7 +32,7 @@ export const fetchReviewById = createAsyncThunk(
     "review/fetchReviewById",
     async (reviewId) => {
         const response = await axios.get(
-            `http://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/${reviewId}/`
+            `https://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/${reviewId}/`
         );
         return response.data;
     }
@@ -47,7 +47,7 @@ export const fetchCommentsByUser = createAsyncThunk(
         const token = state.review.token
 
         const response = await axios.get(
-            `http://localhost:5173/api/review/comment/user/${userId}/`, {
+            `https://localhost:5173/api/review/comment/user/${userId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}` // send token in header
                 },
