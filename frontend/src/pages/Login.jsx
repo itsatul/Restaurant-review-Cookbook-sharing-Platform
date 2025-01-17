@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {
     AuthFormForm,
     ContainerAuthDiv,
@@ -23,6 +23,7 @@ const Login = () => {
         // const {username, password} = userInfo
         const dispatch = useDispatch();
         const navigate = useNavigate()
+        const location = useLocation();
 
         const onChange = (e) => {
             setUserInfo({...userInfo, [e.target.name]: e.target.value});
@@ -42,7 +43,7 @@ const Login = () => {
                         const from = location.state?.from || {pathname: "/"};
                         navigate(from);
                     })
-                    .catch((err) => {
+                    .catch(() => {
                         dispatch(logout());
                         localStorage.clear()
                         setError("Login Failed");
@@ -67,7 +68,7 @@ const Login = () => {
                                 <input type='email' placeholder='E-Mail' name='email' onChange={onChange}/>
                             </div>
                             <div className='input-wrapper'>
-                                <input type='text' placeholder='Password' name='password' onChange={onChange}/>
+                                <input type='password' placeholder='Password' name='password' onChange={onChange}/>
                             </div>
                         </div>
                         {error && <div className='error-box'>

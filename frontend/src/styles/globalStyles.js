@@ -7,8 +7,9 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    body {
+    html, body {
         width: 100vw;
+        height: 100%;
         font-family: 'Roboto', sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
