@@ -11,9 +11,37 @@ import {
     TopTitle
 } from "./style.js";
 import {useNavigate} from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CreateRestaurant() {
+    const ToastStyles = styled(ToastContainer)`
+  .Toastify__toast {
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: "Roboto", sans-serif;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
 
+  .Toastify__toast--success {
+    background-color: green;
+  }
+
+  .Toastify__toast--error {
+    background-color: red;
+  }
+
+  .Toastify__toast-body {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  button[aria-label="close"] {
+    color: white;
+  }
+`;
 
     // MID PART CSS
 
@@ -33,6 +61,7 @@ export default function CreateRestaurant() {
     const token = localStorage.getItem("access");
     const dispatch = useDispatch()
     const navigate = useNavigate();
+
 
     // const fetchtoken  = async () => {
     //     try {
@@ -61,13 +90,13 @@ export default function CreateRestaurant() {
 
         try {
             if(!name || !street || !city || !zip || !website || !phone || !email || !opening_hours || !price_level ){
-                console.log("plis pull all the fields ")
+                toast.error("Please pull all the fields ")
                 return;
             }
 
             const token = localStorage.getItem("access");
             if (!token) {
-                console.error("User is not authenticated. Please log in.");
+                toast.error("User is not authenticated. Please log in.");
             }
             const config = {
                 headers: {
@@ -90,10 +119,10 @@ export default function CreateRestaurant() {
 
             }, config)
             // toast.success("Review submitted successfully!");
-            console.log("submit done , check gmail :D")
+            toast.success("submit done , check gmail :D")
             navigate("/")
         } catch (error) {
-            console.log('error')
+            toast.error('error')
         }
 
 
@@ -186,7 +215,7 @@ export default function CreateRestaurant() {
             <BottonSeciton>
                 <button type="submit">Submit</button>
             </BottonSeciton>
-
+            <ToastStyles/>
         </Restaurantstyle>
 
     )
