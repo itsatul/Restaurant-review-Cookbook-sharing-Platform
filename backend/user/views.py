@@ -362,7 +362,7 @@ class PasswordValidationView(APIView):
             if new_password != repeat_new_password:
                 return Response({'error': 'New Password does not match'}, status=status.HTTP_400_BAD_REQUEST)
             user.set_password(new_password)
-            # user.profile.password_reset_code = None
+            user.profile.password_reset_code = None
             user.profile.save()
             user.save()
             return Response({'message': 'Password updated'}, status=status.HTTP_200_OK)

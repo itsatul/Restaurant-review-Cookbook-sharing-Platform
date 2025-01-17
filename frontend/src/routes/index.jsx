@@ -10,6 +10,7 @@ import ForgotPassword from "../pages/ForgotPassword.jsx";
 import NewPassword from "../pages/NewPassword.jsx";
 import LikeButton from "../components/LikeButton/index.jsx";
 import RestaurantPage from "../pages/RestaurantPage/index.jsx";
+import CreateRestaurant from "../pages/CreateRestaurantPage/index.jsx";
 
 
 export default function Router() {
@@ -35,7 +36,7 @@ export default function Router() {
                     <Route path="/forgot-password" element={<ForgotPassword/>}/>
                     <Route path="/new-password" element={<NewPassword/>}/>
                     <Route path="*" element={<div>404 Page Not Found</div>}/>
-                    <Route path="/test" element={<LikeButton/>}/>
+                    <Route path="/create-restaurant" element={<CreateRestaurant/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
