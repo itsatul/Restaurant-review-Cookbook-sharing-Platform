@@ -34,7 +34,6 @@ const RestaurentBannerDiv = styled.div`
 `;
 const ContectContainerDiv = styled.div`
     display: flex;
-    background-color: black;
     padding: 1rem 5rem;
     gap: 1rem;
 `
@@ -75,7 +74,7 @@ const ReviewDiv = styled.div`
     width: 70%;
     height: fit-content;
     flex-grow: 1;
-    background-color: aqua;
+    background-color: #F5F5F5;
 `;
 
 function RestaurantPage() {
