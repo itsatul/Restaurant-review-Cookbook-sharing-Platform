@@ -7,7 +7,7 @@ export const fetchReviewData = createAsyncThunk(
     async () => {
         try {
             const response = await axios.get('https://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/');
-            console.log(response.data)
+            console.log('redux', response.data)
             return response.data
         } catch (error) {
             console.error("Error fetching reviews:", error);
@@ -62,14 +62,28 @@ const reviewSlice = createSlice({
     initialState: {
         reviewsByUser: {},
         commentsByUser: {},
+        data: [],
         reviewDetails: null,
         status: 'idle',
         error: null,
         token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3MzgyODA2LCJpYXQiOjE3MzY5NTA4MDYsImp0aSI6ImMyZWY3NjM4NTEzYzRjNTBiNWVmMDk4ZmNmNTI0MzE0IiwidXNlcl9pZCI6M30.b1GCn866kbZIknfZKJZktRpeKiEPxKCuSqaM5aQ09ts',
-
     },
     extraReducers: (builder) => {
         builder
+            // handling fetching reviews
+            .addCase(fetchReviewData.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchReviewData.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.data = action.payload;
+                console.log('action payload', state.review)
+            })
+            .addCase(fetchReviewData.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message || 'An unknown error occurred.';
+            })
+
             // handling fetching reviews by User
             .addCase(fetchReviewsByUser.pending, (state) => {
                 state.status = 'loading';

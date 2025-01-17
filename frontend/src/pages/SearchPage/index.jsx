@@ -95,6 +95,8 @@ export default function SearchPage() {
         }
     }
 
+    console.log('review data', reviewData)
+
     return (
         <SearchPageContainer>
             <SearchBarSearch/>

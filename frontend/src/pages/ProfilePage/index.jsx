@@ -188,7 +188,6 @@ export default function ProfilePage() {
 
     const {data: userData, status: userStatus, error: userError} = useUserData()
     const [activeNav, setActiveNav] = useState(0)
-    console.log('profile page user data log', userData.profile_picture)
     const handleNavClick = (index) => {
         setActiveNav(index)
     }

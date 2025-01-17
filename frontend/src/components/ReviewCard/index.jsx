@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import LikeButton from "../LikeButton/index.jsx";
 import CommentButton from "../CommentButton/index.jsx";
-import React, {useState} from "react";
+import React from "react";
 
 const ReviewCardDiv = styled.div`
     max-width: 270px;
@@ -134,32 +134,34 @@ const ReviewCardBottom = styled.div`
 `;
 
 export default function ReviewCard({review}) {
-    // Local state for likes
-    const [likeCount, setLikeCount] = useState(review.like_count);
-    const [liked, setLiked] = useState(false); // Assume the user hasn't liked initially
+    // // Local state for likes
+    // const [likeCount, setLikeCount] = useState(review.like_count);
+    // const [liked, setLiked] = useState(false); // Assume the user hasn't liked initially
+    //
+    // // Function to handle like/unlike
+    // const handleLikeToggle = async () => {
+    //     try {
+    //         const response = await fetch(`http://127.0.0.1:8000/backend/api/reviews/like/${review.id}/`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if required
+    //             },
+    //         });
+    //
+    //         if (response.ok) {
+    //             // Toggle liked state and update count
+    //             setLiked(!liked);
+    //             setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+    //         } else {
+    //             console.error("Failed to toggle like status");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error liking/unliking the review:", error);
+    //     }
+    // };
 
-    // Function to handle like/unlike
-    const handleLikeToggle = async () => {
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/backend/api/reviews/like/${review.id}/`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if required
-                },
-            });
-
-            if (response.ok) {
-                // Toggle liked state and update count
-                setLiked(!liked);
-                setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
-            } else {
-                console.error("Failed to toggle like status");
-            }
-        } catch (error) {
-            console.error("Error liking/unliking the review:", error);
-        }
-    };
+    console.log('reviews from review card', review)
     return (
         <ReviewCardDiv key={review.id}>
             {/* Top Section */}
@@ -188,9 +190,10 @@ export default function ReviewCard({review}) {
 
             {/* Buttons Section */}
             <ButtonDiv>
-                <button onClick={handleLikeToggle}>
+                <button>
                     <LikeButton/>
-                    {liked ? "Unlike" : "Like"} {likeCount}
+                    {/*{liked ? "Unlike" : "Like"} {likeCount}*/}
+                    Likes {review.like_count}
                 </button>
                 <button>
                     <CommentButton/>
