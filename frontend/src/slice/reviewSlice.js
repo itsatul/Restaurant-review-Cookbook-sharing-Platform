@@ -47,7 +47,7 @@ export const fetchCommentsByUser = createAsyncThunk(
         const token = state.review.token
 
         const response = await axios.get(
-            `https://localhost:5173/api/review/comment/user/${userId}/`, {
+            `https://luna-project-batch30.propulsion-learn.ch/backend/api/review/comment/user/${userId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}` // send token in header
                 },
