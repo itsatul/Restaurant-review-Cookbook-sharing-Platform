@@ -37,7 +37,15 @@ export default function RestaurantCard({restaurant}) {
             <div
                 className={'restaurant-address'}>{`${restaurant.street}, ${restaurant.city}, ${restaurant.zip}, ${restaurant.country}`}</div>
             <StarRating rating={restaurant.average_rating}/>
-            <img className="restaurant-image" src={restaurant.image} alt="Restaurant"/>
+            {restaurant.image ? (
+                <img
+                    className="restaurant-image"
+                    src={`https://luna-project-batch30.propulsion-learn.ch${restaurant.image}`}
+                    alt="Restaurant"
+                />
+            ) : (
+                <div className="no-image-placeholder">No Image</div>
+            )}
 
             {/*{*/}
             {/*    restaurant.images && restaurant.images[0] && (*/}

@@ -8,9 +8,20 @@ User = get_user_model()
 
 
 class OwnerSerializer(serializers.ModelSerializer):
+    review_count = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
+
+    def get_review_count(self, obj):
+        # Ensure user_reviews is the correct related_name in your models
+        return obj.user_reviews.count()
+
+    def get_comment_count(self, obj):
+        # Ensure user_comments is the correct related_name in your models
+        return obj.user_comments.count()
+
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'review_count', 'comment_count', 'profile_picture']
         ref_name = 'Owner'
 
 
@@ -22,8 +33,8 @@ class RestaurantReviewSerializer(serializers.ModelSerializer):
 
 
 class ReviewCommentSerializer(serializers.ModelSerializer):
-    user = OwnerSerializer()
-    restaurant_review = RestaurantReviewSerializer()
+    user = OwnerSerializer(read_only=True)
+    restaurant_review = RestaurantReviewSerializer(read_only=True)
 
     class Meta:
         model = ReviewComment

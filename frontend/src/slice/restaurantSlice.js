@@ -5,8 +5,10 @@ import axios from "axios";
 export const fetchRestaurantData = createAsyncThunk(
     'restaurant/fetchRestaurantData',
     async () => {
-        const response = await axios.get('https://dummyjson.com/products');
-        return response.data.products;
+        const response = await axios.get('https://luna-project-batch30.propulsion-learn.ch/backend/api/restaurants/');
+        console.log(response.data)
+        return response.data
+
     }
 );
 

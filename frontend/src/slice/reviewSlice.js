@@ -5,8 +5,14 @@ import axios from "axios";
 export const fetchReviewData = createAsyncThunk(
     'review/fetchReviewData',
     async () => {
-        const response = await axios.get('https://dummyjson.com/posts');
-        return response.data.posts
+        try {
+            const response = await axios.get('https://luna-project-batch30.propulsion-learn.ch/backend/api/reviews/');
+            console.log(response.data)
+            return response.data
+        } catch (error) {
+            console.error("Error fetching reviews:", error);
+            throw error; // Re-throw to trigger rejected case
+        }
     }
 );
 
