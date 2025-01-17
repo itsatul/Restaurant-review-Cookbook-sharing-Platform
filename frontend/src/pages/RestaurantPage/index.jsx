@@ -76,32 +76,6 @@ const ReviewDiv = styled.div`
     height: fit-content;
     flex-grow: 1;
     background-color: aqua;
-`
-const SearchBarContainer = styled.div`
-    display: flex;
-    margin: 20px auto;
-    max-width: 500px;
-
-    input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px 0 0 5px;
-        background-color: aliceblue;
-    }
-
-    button {
-        padding: 10px 20px;
-        background-color: orange;
-        color: white;
-        border: none;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-
-        &:hover {
-            background-color: darkorange;
-        }
-    }
 `;
 
 function RestaurantPage() {
