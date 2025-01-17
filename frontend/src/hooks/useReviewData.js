@@ -13,6 +13,7 @@ export const useReviewData = () => {
             dispatch(fetchReviewData());
         }
     }, [status, dispatch]);
+    console.log('hook data', data)
 
     return {data, status, error};
 };

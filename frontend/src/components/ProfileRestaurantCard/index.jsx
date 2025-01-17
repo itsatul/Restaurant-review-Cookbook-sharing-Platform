@@ -52,6 +52,15 @@ const ButtonDiv = styled.div`
 
 `
 
+const RestaurantDescription = styled.div`
+    p{
+        font-size: 16px;
+        font-weight: 300;
+        color: #303030;
+    }
+
+`
+
 export default function ProfileRestaurantCard({userId, activeNav}) {
     const navigate = useNavigate()
     const {
@@ -71,14 +80,13 @@ export default function ProfileRestaurantCard({userId, activeNav}) {
         return <p>No reviews found for this user.</p>;
     }
 
-    console.log('profile restaurant card', userRestaurantData)
-
     return (
         <>
             {userRestaurantData.map((restaurant) => (
                 <ReviewCardDiv key={restaurant.id}>
                     <p className={'restaurant-title'}>{restaurant.name}</p>
                     <StarRating rating={restaurant.average_rating}></StarRating>
+                    <RestaurantDescription><p>{restaurant.description}</p></RestaurantDescription>
                 </ReviewCardDiv>
             ))}
             <ButtonDiv>
