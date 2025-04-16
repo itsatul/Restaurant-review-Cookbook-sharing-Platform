@@ -6,7 +6,7 @@ A full-stack web application where users can search restaurants, leave reviews, 
 
 ## 🖼️ Screenshot
 
-![App Screenshot](./sscreenshot.png)
+![App Screenshot](./screenshot.png)
 
 ---
 
